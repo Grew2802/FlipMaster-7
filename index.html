@@ -10,14 +10,23 @@
     <meta name="apple-mobile-web-app-title" content="FlipMaster 7">
     <title>FlipMaster 7</title>
 
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23111'/><rect x='5' y='5' width='90' height='90' rx='15' stroke='%23ffcc00' stroke-width='3' fill='none'/><text x='50' y='70' font-family='sans-serif' font-weight='900' font-size='60' text-anchor='middle' fill='%23ffcc00'>7</text></svg>">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23000'/><rect x='5' y='5' width='90' height='90' rx='18' stroke='%23ffcc00' stroke-width='4' fill='%231a1a1a'/><text x='50' y='70' font-family='sans-serif' font-weight='900' font-size='60' text-anchor='middle' fill='%23ffcc00'>7</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23111'/><rect x='5' y='5' width='90' height='90' rx='15' stroke='%2340c4ff' stroke-width='3' fill='none'/><text x='50' y='70' font-family='sans-serif' font-weight='900' font-size='60' text-anchor='middle' fill='%2340c4ff'>7</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23000'/><rect x='5' y='5' width='90' height='90' rx='18' stroke='%2340c4ff' stroke-width='4' fill='%231a1a1a'/><text x='50' y='70' font-family='sans-serif' font-weight='900' font-size='60' text-anchor='middle' fill='%2340c4ff'>7</text></svg>">
 
     <style>
         :root { 
-            --gold: #ffcc00; --bg: #0a0a0c; --card-bg: rgba(30, 30, 35, 0.85); 
-            --text: #fff; --subtext: #aaa; 
-            --f7-purple: #9c27b0; --bust-red: #ff4444; --bonus-green: #00e676;
+            /* === NEW COLOR PALETTE (BLUE THEME) === */
+            /* Dark Mode Default (Neon Sky Blue) */
+            --primary-color: #40c4ff; 
+            
+            --bg: #0a0a0c; 
+            --card-bg: rgba(30, 30, 35, 0.85); 
+            --text: #fff; 
+            --subtext: #90caf9; /* Slight blue tint to grey text */
+            --header-bg: rgba(255, 255, 255, 0.05);
+            --header-border: rgba(255, 255, 255, 0.1);
+            --input-bg: rgba(0,0,0,0.3);
+            --f7-purple: #ab47bc; --bust-red: #ff5252; --bonus-green: #69f0ae;
             
             /* NEON Card Colors */
             --c12: #ff2a2a; --c11: #ff9100; --c10: #ffd600; --c9: #00e676; --c8: #2979ff;
@@ -25,54 +34,120 @@
             --c2: #bdbdbd; --c1: #ffffff;
         }
 
+        /* LIGHT MODE OVERRIDES */
+        body.light-mode {
+            /* Light Mode Primary (Deep Ocean Blue - Readable on white) */
+            --primary-color: #006064; 
+
+            --bg: #e3f2fd; /* Very pale blue bg */
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text: #102027;
+            --subtext: #546e7a;
+            --header-bg: rgba(255, 255, 255, 0.9);
+            --header-border: rgba(0, 96, 100, 0.15);
+            --input-bg: rgba(0,0,0,0.05);
+            
+            /* Darker card colors for white background */
+            --c12: #c62828; --c11: #ef6c00; --c10: #f9a825; --c9: #2e7d32; --c8: #1565c0;
+            --c7: #7b1fa2; --c6: #ad1457; --c5: #00695c; --c4: #4e342e; --c3: #37474f;
+            --c2: #424242; --c1: #000000;
+        }
+
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-            background: radial-gradient(circle at top, #1a1a2e 0%, #0a0a0c 100%); 
+            background: var(--bg);
+            /* Subtle blue gradient in dark mode */
+            background-image: radial-gradient(circle at top, rgba(64, 196, 255, 0.15) 0%, transparent 80%);
             color: var(--text); display: flex; flex-direction: column; align-items: center; padding: 15px; margin: 0; min-height: 100vh;
             padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom);
             overflow-x: hidden; user-select: none; -webkit-user-select: none;
+            transition: background 0.3s, color 0.3s;
         }
 
         /* --- LAYOUT & GLASS PANELS --- */
         .glass-panel { 
             background: var(--card-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
             padding: 20px; border-radius: 24px; width: 100%; max-width: 480px; 
-            box-shadow: 0 8px 32px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.08); box-sizing: border-box; 
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1); border: 1px solid var(--header-border); box-sizing: border-box; 
+            transition: background 0.3s;
         }
 
         .title-screen { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 85vh; }
-        .hero-logo { width: 120px; height: 120px; border-radius: 30px; margin-bottom: 20px; box-shadow: 0 0 30px rgba(255, 204, 0, 0.3); border: 2px solid var(--gold); background: #111; display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+        .hero-logo { width: 120px; height: 120px; border-radius: 30px; margin-bottom: 20px; box-shadow: 0 0 30px rgba(64, 196, 255, 0.3); border: 2px solid var(--primary-color); background: #111; display: flex; align-items: center; justify-content: center; font-size: 3rem; }
         
         /* --- BUTTONS --- */
-        .menu-btn, .opt-btn, .tab-btn, .bust-btn, .token, .submit-btn, .toggle-btn, .dealer-marker, .slick-card {
+        .menu-btn, .opt-btn, .tab-btn, .bust-btn, .token, .submit-btn, .toggle-btn, .dealer-marker, .slick-card, .header-icon-btn {
             transition: all 0.1s; touch-action: manipulation; cursor: pointer;
         }
-        .menu-btn:active, .opt-btn:active, .dealer-marker:active, .slick-card:active { transform: scale(0.95); filter: brightness(1.2); }
+        .menu-btn:active, .opt-btn:active, .dealer-marker:active, .slick-card:active, .header-icon-btn:active { transform: scale(0.95); filter: brightness(1.2); }
 
-        .menu-btn { width: 100%; padding: 18px; margin: 10px 0; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #fff; font-weight: 900; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; }
-        .menu-btn.primary { background: var(--gold); color: #000; border: none; box-shadow: 0 0 20px rgba(255, 204, 0, 0.2); }
-        .menu-btn.danger { border-color: rgba(255, 68, 68, 0.3); color: var(--bust-red); font-size: 0.8rem; margin-top: 30px; padding: 12px; }
-        .menu-btn.secondary { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); }
-        .menu-btn.warn { background: rgba(255, 68, 68, 0.15); border: 1px solid rgba(255, 68, 68, 0.5); color: var(--bust-red); }
-        .menu-btn.install { background: #2979ff; border: none; box-shadow: 0 0 15px rgba(41, 121, 255, 0.4); display: none; }
-        .menu-btn.coffee { border-color: #FFDD00; color: #FFDD00; background: rgba(255, 221, 0, 0.1); margin-top: 10px; font-size: 0.8rem; }
+        .menu-btn { width: 100%; padding: 18px; margin: 10px 0; border-radius: 16px; border: 1px solid var(--header-border); background: var(--header-bg); color: var(--text); font-weight: 900; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; }
+        .menu-btn.primary { background: var(--primary-color); color: #000; border: none; box-shadow: 0 0 20px rgba(64, 196, 255, 0.3); color: #fff; }
+        .light-mode .menu-btn.primary { color: #fff; }
+        
+        .menu-btn.danger { border-color: rgba(255, 82, 82, 0.3); color: var(--bust-red); font-size: 0.8rem; margin-top: 30px; padding: 12px; }
+        .menu-btn.secondary { background: rgba(255, 255, 255, 0.05); }
+        .light-mode .menu-btn.secondary { background: rgba(0,0,0,0.05); }
+        .menu-btn.warn { background: rgba(255, 82, 82, 0.1); border: 1px solid rgba(255, 82, 82, 0.4); color: var(--bust-red); }
+        .menu-btn.install { background: #2979ff; border: none; box-shadow: 0 0 15px rgba(41, 121, 255, 0.4); color: #fff; display: none; }
+        
+        /* Coffee button updated to match blue theme better, or keep distinct */
+        .menu-btn.coffee { border-color: var(--primary-color); color: var(--primary-color); background: rgba(64, 196, 255, 0.1); margin-top: 10px; font-size: 0.8rem; }
 
-        .header-row { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 480px; margin-bottom: 10px; }
-        h1 { color: var(--gold); margin: 0; font-size: 1rem; text-transform: uppercase; font-weight: 900; letter-spacing: 1px; text-shadow: 0 0 10px rgba(255, 204, 0, 0.3); }
-        .reset-action-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 68, 68, 0.2); color: var(--bust-red); padding: 10px 20px; border-radius: 14px; font-size: 0.7rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
+        /* --- UPDATED HEADER ROW --- */
+        .header-row { 
+            display: flex; align-items: center; justify-content: space-between; 
+            width: 100%; max-width: 480px; margin-bottom: 20px; 
+            background: var(--header-bg); 
+            border: 1px solid var(--header-border); 
+            border-radius: 18px; 
+            padding: 22px 20px; 
+            box-sizing: border-box; 
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .header-left { flex: 1; display: flex; flex-direction: column; align-items: flex-start; }
+        .header-title { 
+            color: var(--primary-color); margin: 0; font-size: 1rem; 
+            text-transform: uppercase; font-weight: 900; letter-spacing: 1px; 
+            text-shadow: 0 0 10px rgba(64, 196, 255, 0.2);
+            white-space: nowrap;
+        }
+        .header-round {
+            font-size: 0.75rem; font-weight: bold; color: var(--subtext);
+            margin-top: 2px;
+        }
+
+        .header-controls { display: flex; gap: 8px; align-items: center; }
+
+        .header-icon-btn {
+            background: transparent; border: none; font-size: 1.2rem;
+            padding: 8px; border-radius: 50%; width: 40px; height: 40px;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(128,128,128,0.1);
+            color: var(--subtext);
+        }
+
+        .reset-action-btn { 
+            background: rgba(64, 196, 255, 0.1); 
+            border: 1px solid var(--header-border); 
+            color: var(--primary-color); padding: 10px 16px; 
+            border-radius: 12px; font-size: 0.75rem; 
+            font-weight: 900; text-transform: uppercase; letter-spacing: 1px; 
+        }
 
         .tab-container { display: flex; gap: 8px; margin-bottom: 20px; width: 100%; max-width: 480px; }
-        .tab-btn { flex: 1; padding: 12px; border-radius: 12px; background: rgba(255,255,255,0.05); color: var(--subtext); border: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem; font-weight: bold; }
-        .tab-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(255, 204, 0, 0.1); }
+        .tab-btn { flex: 1; padding: 12px; border-radius: 12px; background: var(--header-bg); color: var(--subtext); border: 1px solid var(--header-border); font-size: 0.75rem; font-weight: bold; }
+        .tab-btn.active { border-color: var(--primary-color); color: var(--primary-color); background: rgba(64, 196, 255, 0.1); }
 
         /* --- PLAYER ROW --- */
-        .player-row { background: rgba(255, 255, 255, 0.03); margin-bottom: 15px; padding: 18px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.1); position: relative; }
-        .leader { border: 1px solid var(--gold); box-shadow: 0 0 15px rgba(255, 204, 0, 0.1); }
-        .score { font-size: 2.2rem; font-weight: 900; color: var(--gold); }
+        .player-row { background: var(--header-bg); margin-bottom: 15px; padding: 18px; border-radius: 18px; border: 1px solid var(--header-border); position: relative; }
+        .leader { border: 1px solid var(--primary-color); box-shadow: 0 0 15px rgba(64, 196, 255, 0.1); }
+        .score { font-size: 2.2rem; font-weight: 900; color: var(--primary-color); }
         .bonus-badge {
             background: rgba(0, 230, 118, 0.1); border: 1px solid var(--bonus-green); color: var(--bonus-green);
             padding: 4px 8px; border-radius: 8px; font-size: 0.8rem; font-weight: bold; margin-left: 5px; cursor: pointer;
-            box-shadow: 0 0 5px var(--bonus-green);
         }
 
         /* --- DEALER MARKER --- */
@@ -80,26 +155,26 @@
         .p-info { display: flex; align-items: center; gap: 10px; }
         .dealer-marker { 
             width: 28px; height: 28px; border-radius: 50%; 
-            border: 1px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.3);
-            color: #555; font-weight: bold; font-size: 0.8rem;
+            border: 1px solid var(--subtext); background: rgba(0,0,0,0.1);
+            color: var(--subtext); font-weight: bold; font-size: 0.8rem;
             display: flex; align-items: center; justify-content: center;
         }
         .dealer-marker.active {
-            background: #fff; color: #000; border-color: #fff;
-            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+            background: var(--text); color: var(--bg); border-color: var(--text);
+            box-shadow: 0 0 10px rgba(128,128,128,0.3);
         }
 
         .action-group { display: flex; gap: 8px; margin-top: 15px; }
-        .opt-btn { flex: 1; padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); color: var(--subtext); font-size: 0.7rem; font-weight: 800; }
-        .active-x2 { background: var(--gold) !important; color: #000 !important; }
+        .opt-btn { flex: 1; padding: 12px; border-radius: 12px; border: 1px solid var(--header-border); background: rgba(128,128,128,0.05); color: var(--subtext); font-size: 0.7rem; font-weight: 800; }
+        .active-x2 { background: var(--primary-color) !important; color: #fff !important; }
         .active-f7 { background: var(--f7-purple) !important; color: #fff !important; }
-        .delete-btn { border-color: rgba(255, 68, 68, 0.5); background: rgba(255, 68, 68, 0.15); color: var(--bust-red); flex: 0.5; font-weight: 900; font-size: 1.2rem; }
+        .delete-btn { border-color: rgba(255, 82, 82, 0.5); background: rgba(255, 82, 82, 0.1); color: var(--bust-red); flex: 0.5; font-weight: 900; font-size: 1.2rem; }
 
-        .is-busted-wrapper .player-row { filter: grayscale(1); opacity: 0.3; }
+        .is-busted-wrapper .player-row { filter: grayscale(1); opacity: 0.5; }
         .bust-btn { background: var(--bust-red); color: white; padding: 8px 16px; border-radius: 20px; border: none; font-weight: 900; text-transform: uppercase; font-size: 0.7rem; white-space: nowrap; }
-        .undo-bust { background: rgba(255, 255, 255, 0.1) !important; color: var(--subtext) !important; border: 1px solid #444 !important; }
+        .undo-bust { background: rgba(128, 128, 128, 0.2) !important; color: var(--subtext) !important; border: 1px solid var(--subtext) !important; }
 
-        /* --- CARD CSS (NEON) --- */
+        /* --- CARD CSS (ADAPTIVE) --- */
         .token-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 15px 0; }
         .slick-card {
             aspect-ratio: 2.5 / 3.5; border-radius: 12px;
@@ -107,12 +182,25 @@
             padding: 6px; position: relative; overflow: hidden;
             background-color: #111; border: 2px solid var(--c-bg);
             box-shadow: 0 0 5px var(--c-bg), inset 0 0 10px rgba(0,0,0,0.5);
+            transition: background 0.3s, border 0.3s, box-shadow 0.3s;
         }
-        .slick-card.number::before {
+        
+        /* Light Mode Card Style (Cleaner, less glow) */
+        .light-mode .slick-card.number {
+            background-color: #fff;
+            border: 2px solid var(--c-bg);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .light-mode .slick-card.number .card-center { text-shadow: none; }
+        .light-mode .slick-card.number .card-corner { text-shadow: none; }
+
+        /* Dark Mode Neon Pattern */
+        body:not(.light-mode) .slick-card.number::before {
             content: ''; position: absolute; inset: 0;
             background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
             background-size: 10px 10px; pointer-events: none;
         }
+
         .slick-card.bonus {
             background: linear-gradient(135deg, var(--c-bg), #004d40);
             border: 2px solid rgba(255,255,255,0.8);
@@ -128,15 +216,15 @@
         .bonus-row .slick-card { aspect-ratio: 2.5/3.5; --c-bg: var(--bonus-green); }
         .bonus-row .card-center { font-size: 1.6rem; }
 
-        .submit-btn { background: var(--gold); color: #000; width: 100%; padding: 16px; border-radius: 16px; font-weight: 900; border: none; font-size: 1rem; margin-top: 15px; }
+        .submit-btn { background: var(--primary-color); color: #fff; width: 100%; padding: 16px; border-radius: 16px; font-weight: 900; border: none; font-size: 1rem; margin-top: 15px; }
 
         /* --- UTILS --- */
-        .setting-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .toggle-btn { background: #333; color: #aaa; border: 1px solid #555; padding: 10px 20px; border-radius: 20px; font-weight: bold; font-size: 0.8rem; min-width: 80px; }
-        .toggle-btn.active { background: var(--gold); color: #000; border-color: var(--gold); }
+        .setting-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--header-border); }
+        .toggle-btn { background: rgba(128,128,128,0.2); color: var(--subtext); border: 1px solid var(--subtext); padding: 10px 20px; border-radius: 20px; font-weight: bold; font-size: 0.8rem; min-width: 80px; }
+        .toggle-btn.active { background: var(--primary-color); color: #fff; border-color: var(--primary-color); }
         .rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; text-align: left; }
-        .rule-card { background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px; font-size: 0.85rem; color: #ccc; }
-        .rule-card b { color: var(--gold); display: block; margin-bottom: 4px; }
+        .rule-card { background: var(--header-bg); padding: 10px; border-radius: 10px; font-size: 0.85rem; color: var(--subtext); }
+        .rule-card b { color: var(--primary-color); display: block; margin-bottom: 4px; }
 
         /* --- CONFETTI CANVAS --- */
         #confetti-canvas { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events: none; z-index: 10002; display: none; }
@@ -144,18 +232,18 @@
         /* --- MODALS --- */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.9); z-index: 10000; display: none; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
         .modal-overlay.show { display: flex !important; }
-        .modal-box { background: #1e1e24; border: 2px solid var(--gold); border-radius: 20px; padding: 25px; width: 100%; max-width: 350px; text-align: center; box-shadow: 0 0 50px rgba(0,0,0,0.8); position: relative; z-index: 10001; max-height: 85vh; overflow-y: auto; }
-        .modal-text { font-size: 1.2rem; font-weight: bold; color: #fff; margin-bottom: 25px; }
+        .modal-box { background: var(--bg); border: 2px solid var(--primary-color); border-radius: 20px; padding: 25px; width: 100%; max-width: 350px; text-align: center; box-shadow: 0 0 50px rgba(0,0,0,0.5); position: relative; z-index: 10001; max-height: 85vh; overflow-y: auto; color: var(--text); }
+        .modal-text { font-size: 1.2rem; font-weight: bold; color: var(--text); margin-bottom: 25px; }
         .modal-actions { display: flex; gap: 15px; }
         .modal-btn { flex: 1; padding: 15px; border-radius: 12px; font-weight: bold; border: none; font-size: 1rem; cursor: pointer; }
         .btn-cancel { background: #333; color: #fff; border: 1px solid #555; }
-        .btn-confirm { background: var(--gold); color: #000; }
+        .btn-confirm { background: var(--primary-color); color: #fff; }
         
-        input[type="number"] { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 12px; border-radius: 12px; text-align: center; font-size: 1.1rem; -moz-appearance: textfield; width: 100%; max-width: 70px; }
-        input[type="text"] { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 12px; border-radius: 12px; text-align: center; font-size: 1.1rem; -moz-appearance: textfield; }
+        input[type="number"] { background: var(--input-bg); border: 1px solid var(--header-border); color: var(--text); padding: 12px; border-radius: 12px; text-align: center; font-size: 1.1rem; -moz-appearance: textfield; width: 100%; max-width: 70px; }
+        input[type="text"] { background: var(--input-bg); border: 1px solid var(--header-border); color: var(--text); padding: 12px; border-radius: 12px; text-align: center; font-size: 1.1rem; -moz-appearance: textfield; }
         input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
         .hidden { display: none !important; }
-        .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #222; padding: 15px 25px; border-radius: 12px; border: 1px solid var(--gold); z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s; color: var(--gold); font-weight: bold; }
+        .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #222; padding: 15px 25px; border-radius: 12px; border: 1px solid var(--primary-color); z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s; color: var(--primary-color); font-weight: bold; }
         .toast.show { opacity: 1; }
     </style>
 </head>
@@ -175,25 +263,36 @@
 
     <div id="settings-modal" class="modal-overlay" onclick="closeSettings()">
         <div class="modal-box" onclick="event.stopPropagation()">
-            <div class="modal-text" style="color:var(--gold); font-size: 1.5rem;">Settings</div>
+            <div class="modal-text" style="color:var(--primary-color); font-size: 1.5rem;">Settings</div>
+            
+            <div class="setting-row">
+                <div style="text-align:left;">
+                    <div style="font-weight:bold;">Theme</div>
+                    <small style="color:var(--subtext);">Light / Dark</small>
+                </div>
+                <button id="theme-btn" class="toggle-btn" onclick="toggleTheme()">DARK</button>
+            </div>
+
             <div class="setting-row">
                 <div style="text-align:left;">
                     <div style="font-weight:bold;">Audio</div>
-                    <small style="color:#666;">Sound effects</small>
+                    <small style="color:var(--subtext);">Sound effects</small>
                 </div>
                 <button id="sound-btn" class="toggle-btn" onclick="toggleSound()">OFF</button>
             </div>
+            
             <div class="setting-row">
                 <div style="text-align:left;">
                     <div style="font-weight:bold;">Haptics</div>
-                    <small style="color:#666;">Vibrate on tap</small>
+                    <small style="color:var(--subtext);">Vibrate on tap</small>
                 </div>
                 <button id="haptic-btn" class="toggle-btn" onclick="toggleHaptics()">OFF</button>
             </div>
+            
             <div class="setting-row">
                 <div style="text-align:left;">
                     <div style="font-weight:bold;">Keep Screen On</div>
-                    <small style="color:#666;">Prevents phone sleeping</small>
+                    <small style="color:var(--subtext);">Prevents phone sleeping</small>
                 </div>
                 <button id="wakelock-btn" class="toggle-btn" onclick="toggleWakeLock()">OFF</button>
             </div>
@@ -203,11 +302,11 @@
 
     <div id="rules-modal" class="modal-overlay" onclick="closeRules()">
         <div class="modal-box" onclick="event.stopPropagation()">
-            <div class="modal-text" style="color:var(--gold); font-size: 1.5rem;">Rules & Odds</div>
-            <p style="color:#aaa; font-size:0.9rem; margin-bottom:20px;">Goal: Reach 200 points. <br><span style="color:var(--gold)">Highest number = Most common!</span></p>
-            <div style="background:rgba(255,255,255,0.1); padding:10px; border-radius:10px; margin-bottom:20px;">
-                <div style="font-weight:bold; color:var(--gold); margin-bottom:5px;">NUMBER CARDS</div>
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:5px; font-size:0.8rem; text-align:left;">
+            <div class="modal-text" style="color:var(--primary-color); font-size: 1.5rem;">Rules & Odds</div>
+            <p style="color:var(--subtext); font-size:0.9rem; margin-bottom:20px;">Goal: Reach 200 points. <br><span style="color:var(--primary-color)">Highest number = Most common!</span></p>
+            <div style="background:var(--header-bg); padding:10px; border-radius:10px; margin-bottom:20px;">
+                <div style="font-weight:bold; color:var(--primary-color); margin-bottom:5px;">NUMBER CARDS</div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:5px; font-size:0.8rem; text-align:left; color:var(--text);">
                     <div>Value <b>12</b>: 12 cards</div>
                     <div>Value <b>11</b>: 11 cards</div>
                     <div>Value <b>10</b>: 10 cards</div>
@@ -219,7 +318,7 @@
                     <div>Value <b>4</b>: 4 cards</div>
                     <div>Value <b>3</b>: 3 cards</div>
                     <div>Value <b>2</b>: 2 cards</div>
-                    <div style="color:var(--gold)">Value <b>1</b>: 1 card</div>
+                    <div style="color:var(--primary-color)">Value <b>1</b>: 1 card</div>
                 </div>
             </div>
             <div class="rules-grid">
@@ -233,13 +332,13 @@
     </div>
 
     <div id="winner-modal" class="modal-overlay">
-        <div class="modal-box" style="max-width: 400px; border-color: var(--gold);">
+        <div class="modal-box" style="max-width: 400px; border-color: var(--primary-color);">
             <div style="font-size:4rem; margin-bottom: 10px;">👑</div>
-            <div id="winner-display-name" style="font-size: 2rem; color: var(--gold); font-weight: 900;">---</div>
-            <p id="winner-score-display" style="color:#aaa; margin-bottom: 30px;">Winner!</p>
+            <div id="winner-display-name" style="font-size: 2rem; color: var(--primary-color); font-weight: 900;">---</div>
+            <p id="winner-score-display" style="color:var(--subtext); margin-bottom: 30px;">Winner!</p>
             <button class="menu-btn primary" onclick="startNewMatch()">RESET SCORES & REPLAY</button>
             <button class="menu-btn warn" onclick="undoWin()">UNDO</button>
-            <button onclick="closeWinnerModal()" style="background:transparent; color:#888; width:100%; padding:15px; border:none; margin-top:5px; cursor:pointer;">RETURN TO MENU</button>
+            <button onclick="closeWinnerModal()" style="background:transparent; color:var(--subtext); width:100%; padding:15px; border:none; margin-top:5px; cursor:pointer;">RETURN TO MENU</button>
         </div>
     </div>
 
@@ -256,18 +355,25 @@
             <button class="menu-btn secondary" onclick="openRules()" style="flex:1;">📖 Rules</button>
         </div>
         <button class="menu-btn secondary" onclick="openSettings()" style="width:100%; margin-top:0;">⚙️ Settings</button>
-        
         <button id="install-btn" class="menu-btn install" onclick="installApp()">⬇️ Install App</button>
         <button class="menu-btn coffee" onclick="window.open('https://buymeacoffee.com/unkieshane', '_blank')">☕ Buy Unkie Shane a Coffee</button>
-        
         <button class="menu-btn danger" onclick="clearRoster()">Clear Roster</button>
     </div>
 
     <div id="app-main" class="hidden" style="width: 100%; max-width: 480px;">
+        
         <div class="header-row">
-            <h1>Scorer</h1>
-            <button class="reset-action-btn" onclick="backToTitle()">MENU</button>
+            <div class="header-left">
+                <div class="header-title">FLIPMASTER 7</div>
+                <div id="round-ind" class="header-round">RND 1</div>
+            </div>
+            <div class="header-controls">
+                <button id="hdr-theme-btn" class="header-icon-btn" onclick="toggleTheme()">☀</button>
+                <button id="hdr-sound-btn" class="header-icon-btn" onclick="toggleSound()">🔇</button>
+                <button class="reset-action-btn" onclick="backToTitle()">MENU</button>
+            </div>
         </div>
+
         <div class="tab-container">
             <button class="tab-btn active" id="tab-game-btn" onclick="switchTab('game')">SCORES</button>
             <button class="tab-btn" id="tab-calc-btn" onclick="switchTab('calc')">CALC</button>
@@ -278,37 +384,38 @@
             <div id="players"></div>
             <div style="display:flex; gap:10px; margin-top:20px;">
                 <input type="text" id="pname" placeholder="Name..." style="flex:1;" onkeydown="if(event.key === 'Enter') addP()">
-                <button onclick="addP()" style="background:var(--gold); color:#000; border:none; padding:0 20px; border-radius:12px; font-weight:bold; font-size:1.5rem;">+</button>
+                <button onclick="addP()" style="background:var(--primary-color); color:#fff; border:none; padding:0 20px; border-radius:12px; font-weight:bold; font-size:1.5rem;">+</button>
             </div>
             <button class="submit-btn" onclick="calc()">SUBMIT ROUND</button>
         </div>
 
         <div id="view-calc" class="glass-panel hidden">
             <div style="text-align:center; font-size: 3.5rem; font-weight: 900; margin-bottom:10px; display:flex; align-items:center; justify-content:center; gap:10px;">
-                <span id="calc-res" style="color:var(--gold)">0</span>
+                <span id="calc-res" style="color:var(--primary-color)">0</span>
                 <span id="calc-bonus-res" style="font-size:1.5rem; color:var(--bonus-green); display:none;">+0</span>
             </div>
             <div id="token-grid" class="token-grid"></div>
-            <div style="text-align:center; margin-top:20px; margin-bottom:5px; color:#aaa; font-size:0.8rem; font-weight:bold;">BONUS CARDS (Not X2)</div>
+            <div style="text-align:center; margin-top:20px; margin-bottom:5px; color:var(--subtext); font-size:0.8rem; font-weight:bold;">BONUS CARDS (Not X2)</div>
             <div id="bonus-grid" class="bonus-row"></div>
             <div style="display:flex; gap:10px; margin-top:15px;">
-                 <button onclick="cClear()" style="flex:1; background:rgba(255,255,255,0.05); color:#fff; border:1px solid rgba(255,255,255,0.1); padding:15px; border-radius:15px; font-weight:bold;">CLR</button>
+                 <button onclick="cClear()" style="flex:1; background:var(--header-bg); color:var(--text); border:1px solid var(--header-border); padding:15px; border-radius:15px; font-weight:bold;">CLR</button>
             </div>
             <div id="send-player-list" style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:20px;"></div>
         </div>
 
         <div id="view-stats" class="glass-panel hidden">
-            <button onclick="backToTitle()" style="width:100%; background:rgba(255,255,255,0.05); color:#fff; border:none; padding:10px; border-radius:10px; margin-bottom:15px; font-size:0.7rem;">← BACK</button>
+            <button onclick="backToTitle()" style="width:100%; background:var(--header-bg); color:var(--text); border:none; padding:10px; border-radius:10px; margin-bottom:15px; font-size:0.7rem;">← BACK</button>
             <div id="stats-content"></div>
         </div>
     </div>
 
     <script>
         // Data Init
-        let data = JSON.parse(localStorage.getItem('unkie_f7_local')) || {p:[], m:[], round:1, keepAwake: false, sound: true, haptics: true, dealerIdx: 0};
+        let data = JSON.parse(localStorage.getItem('unkie_f7_local')) || {p:[], m:[], round:1, keepAwake: false, sound: true, haptics: true, theme:'dark', dealerIdx: 0};
         if(typeof data.dealerIdx === 'undefined') data.dealerIdx = 0;
         if(typeof data.sound === 'undefined') data.sound = true;
         if(typeof data.haptics === 'undefined') data.haptics = true;
+        if(typeof data.theme === 'undefined') data.theme = 'dark';
         data.p.forEach(p => { if(typeof p.bonusVal === 'undefined') p.bonusVal = 0; });
 
         let currentTotal = 0;
@@ -317,8 +424,6 @@
         let wakeLockSentinel = null;
         let backupState = null;
         let deferredPrompt = null;
-        
-        // Sound Context
         let audioCtx = null;
 
         const save = () => localStorage.setItem('unkie_f7_local', JSON.stringify(data));
@@ -327,6 +432,26 @@
             const t = document.getElementById('toast');
             t.innerText = msg; t.classList.add('show');
             setTimeout(() => t.classList.remove('show'), 2000);
+        }
+
+        /* --- THEME ENGINE --- */
+        function applyTheme() {
+            if(data.theme === 'light') {
+                document.body.classList.add('light-mode');
+                document.getElementById('hdr-theme-btn').innerText = '🌙';
+                document.getElementById('theme-btn').innerText = 'LIGHT';
+                document.getElementById('theme-btn').classList.add('active');
+            } else {
+                document.body.classList.remove('light-mode');
+                document.getElementById('hdr-theme-btn').innerText = '☀';
+                document.getElementById('theme-btn').innerText = 'DARK';
+                document.getElementById('theme-btn').classList.remove('active');
+            }
+        }
+
+        function toggleTheme() {
+            data.theme = (data.theme === 'light') ? 'dark' : 'light';
+            save(); applyTheme();
         }
 
         /* --- SOUND ENGINE --- */
@@ -342,35 +467,22 @@
             const gain = audioCtx.createGain();
             osc.connect(gain);
             gain.connect(audioCtx.destination);
-
             const now = audioCtx.currentTime;
             
             if (type === 'click') {
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(800, now);
-                osc.frequency.exponentialRampToValueAtTime(300, now + 0.1);
-                gain.gain.setValueAtTime(0.1, now);
-                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+                osc.type = 'sine'; osc.frequency.setValueAtTime(800, now); osc.frequency.exponentialRampToValueAtTime(300, now + 0.1);
+                gain.gain.setValueAtTime(0.1, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
                 osc.start(now); osc.stop(now + 0.1);
-            } 
-            else if (type === 'bust') {
-                osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(150, now);
-                osc.frequency.linearRampToValueAtTime(50, now + 0.4);
-                gain.gain.setValueAtTime(0.2, now);
-                gain.gain.linearRampToValueAtTime(0.01, now + 0.4);
+            } else if (type === 'bust') {
+                osc.type = 'sawtooth'; osc.frequency.setValueAtTime(150, now); osc.frequency.linearRampToValueAtTime(50, now + 0.4);
+                gain.gain.setValueAtTime(0.2, now); gain.gain.linearRampToValueAtTime(0.01, now + 0.4);
                 osc.start(now); osc.stop(now + 0.4);
-            }
-            else if (type === 'win') {
-                // Arpeggio
+            } else if (type === 'win') {
                 [440, 554, 659, 880].forEach((freq, i) => {
-                    const o = audioCtx.createOscillator();
-                    const g = audioCtx.createGain();
+                    const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
                     o.connect(g); g.connect(audioCtx.destination);
-                    o.type = 'triangle';
-                    o.frequency.value = freq;
-                    g.gain.setValueAtTime(0.1, now + i*0.1);
-                    g.gain.exponentialRampToValueAtTime(0.01, now + i*0.1 + 0.3);
+                    o.type = 'triangle'; o.frequency.value = freq;
+                    g.gain.setValueAtTime(0.1, now + i*0.1); g.gain.exponentialRampToValueAtTime(0.01, now + i*0.1 + 0.3);
                     o.start(now + i*0.1); o.stop(now + i*0.1 + 0.3);
                 });
             }
@@ -382,11 +494,9 @@
             if(data.sound) playSound('click');
         }
 
-        /* --- HAPTICS ENGINE --- */
         function triggerHaptic(type) {
             if (!data.haptics || !navigator.vibrate) return;
-            const duration = (type === 'heavy') ? 40 : 8; 
-            navigator.vibrate(duration);
+            navigator.vibrate((type === 'heavy') ? 40 : 8);
         }
 
         function toggleHaptics() {
@@ -394,101 +504,6 @@
             save(); renderSettingsUI();
             if(data.haptics) triggerHaptic('heavy');
         }
-
-        /* --- CONFETTI ENGINE --- */
-        let confettiActive = false;
-        function startConfetti() {
-            const canvas = document.getElementById('confetti-canvas');
-            canvas.style.display = 'block';
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            const ctx = canvas.getContext('2d');
-            const particles = [];
-            const colors = ['#ffcc00', '#ff2a2a', '#00e676', '#2979ff', '#d500f9'];
-
-            for(let i=0; i<100; i++) {
-                particles.push({
-                    x: Math.random() * canvas.width, y: Math.random() * -canvas.height,
-                    vx: Math.random() * 4 - 2, vy: Math.random() * 5 + 2,
-                    color: colors[Math.floor(Math.random() * colors.length)],
-                    size: Math.random() * 8 + 4
-                });
-            }
-
-            confettiActive = true;
-            function loop() {
-                if(!confettiActive) { ctx.clearRect(0,0,canvas.width,canvas.height); return; }
-                ctx.clearRect(0,0,canvas.width,canvas.height);
-                particles.forEach(p => {
-                    p.x += p.vx; p.y += p.vy;
-                    if(p.y > canvas.height) p.y = -10;
-                    ctx.fillStyle = p.color;
-                    ctx.fillRect(p.x, p.y, p.size, p.size);
-                });
-                requestAnimationFrame(loop);
-            }
-            loop();
-        }
-
-        function stopConfetti() {
-            confettiActive = false;
-            document.getElementById('confetti-canvas').style.display = 'none';
-        }
-
-        /* --- PWA INSTALL --- */
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            const btn = document.getElementById('install-btn');
-            if(btn) btn.style.display = 'block';
-        });
-
-        async function installApp() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    document.getElementById('install-btn').style.display = 'none';
-                }
-                deferredPrompt = null;
-            }
-        }
-
-        /* --- WAKE LOCK --- */
-        async function applyWakeLock() {
-            if (!('wakeLock' in navigator)) return;
-            try {
-                if(data.keepAwake && document.visibilityState === 'visible') {
-                    wakeLockSentinel = await navigator.wakeLock.request('screen');
-                }
-            } catch (err) { console.log(err); }
-        }
-
-        async function toggleWakeLock() {
-            if (!('wakeLock' in navigator)) {
-                showToast("Not supported");
-                return;
-            }
-            data.keepAwake = !data.keepAwake;
-            save();
-            renderSettingsUI();
-            if (data.keepAwake) {
-                await applyWakeLock();
-                showToast("Screen Lock: ON");
-            } else {
-                if (wakeLockSentinel) {
-                    await wakeLockSentinel.release();
-                    wakeLockSentinel = null;
-                }
-                showToast("Screen Lock: OFF");
-            }
-        }
-
-        document.addEventListener('visibilitychange', async () => {
-            if (wakeLockSentinel !== null && document.visibilityState === 'visible') {
-                await applyWakeLock();
-            }
-        });
 
         /* --- UI LOGIC --- */
         function openSettings() {
@@ -500,16 +515,22 @@
         }
         function renderSettingsUI() {
             const wakeBtn = document.getElementById('wakelock-btn');
-            if (data.keepAwake) { wakeBtn.classList.add('active'); wakeBtn.innerText = "ON"; } 
-            else { wakeBtn.classList.remove('active'); wakeBtn.innerText = "OFF"; }
+            if (data.keepAwake) { wakeBtn.classList.add('active'); wakeBtn.innerText = "ON"; } else { wakeBtn.classList.remove('active'); wakeBtn.innerText = "OFF"; }
 
             const soundBtn = document.getElementById('sound-btn');
-            if (data.sound) { soundBtn.classList.add('active'); soundBtn.innerText = "ON"; }
-            else { soundBtn.classList.remove('active'); soundBtn.innerText = "OFF"; }
+            const hdrSound = document.getElementById('hdr-sound-btn');
+            if (data.sound) { 
+                soundBtn.classList.add('active'); soundBtn.innerText = "ON"; 
+                hdrSound.innerText = "🔊";
+            } else { 
+                soundBtn.classList.remove('active'); soundBtn.innerText = "OFF"; 
+                hdrSound.innerText = "🔇";
+            }
 
             const hapticBtn = document.getElementById('haptic-btn');
-            if (data.haptics) { hapticBtn.classList.add('active'); hapticBtn.innerText = "ON"; }
-            else { hapticBtn.classList.remove('active'); hapticBtn.innerText = "OFF"; }
+            if (data.haptics) { hapticBtn.classList.add('active'); hapticBtn.innerText = "ON"; } else { hapticBtn.classList.remove('active'); hapticBtn.innerText = "OFF"; }
+            
+            applyTheme(); // Sync theme button
         }
         
         function openRules() { document.getElementById('rules-modal').classList.add('show'); }
@@ -522,21 +543,14 @@
         }
         function resolveConfirm(result) {
             document.getElementById('confirm-modal').classList.remove('show');
-            if (confirmCallback) {
-                const cb = confirmCallback; confirmCallback = null; cb(result);
-            }
+            if (confirmCallback) { const cb = confirmCallback; confirmCallback = null; cb(result); }
         }
 
         function setDealer(i) {
             triggerHaptic();
-            if (data.dealerIdx === i) {
-                data.dealerIdx++;
-                if (data.dealerIdx >= data.p.length) data.dealerIdx = 0;
-            } else {
-                data.dealerIdx = i;
-            }
-            save();
-            render();
+            if (data.dealerIdx === i) { data.dealerIdx++; if (data.dealerIdx >= data.p.length) data.dealerIdx = 0; } 
+            else { data.dealerIdx = i; }
+            save(); render();
         }
 
         /* --- GAME LOGIC --- */
@@ -545,10 +559,7 @@
             document.getElementById('winner-modal').classList.remove('show');
             const hasScores = data.p.some(p => p.s > 0);
             const doStart = () => {
-                data.p.forEach(p => { 
-                    p.s = 0; p.bCount = 0; p.x2 = false; p.f7 = false; 
-                    p.busted = false; p.curVal = ""; p.bonusVal = 0; p.prevData = null; 
-                });
+                data.p.forEach(p => { p.s = 0; p.bCount = 0; p.x2 = false; p.f7 = false; p.busted = false; p.curVal = ""; p.bonusVal = 0; p.prevData = null; });
                 data.round = 1; save(); switchTab('game');
             };
             if(hasScores) { openConfirm("Reset all scores to 0?", (yes) => { if(yes) doStart(); }); } else { doStart(); }
@@ -557,10 +568,7 @@
         function clearRoster() {
             triggerHaptic('heavy');
             openConfirm("Delete ALL players?", (yes) => {
-                if(yes) {
-                    data.p = []; data.dealerIdx = 0; save(); render();
-                    showToast("Roster Cleared"); checkContinueStatus();
-                }
+                if(yes) { data.p = []; data.dealerIdx = 0; save(); render(); showToast("Roster Cleared"); checkContinueStatus(); }
             });
         }
 
@@ -582,9 +590,7 @@
             if(!document.getElementById('view-game').classList.contains('hidden')) syncInputs();
             document.getElementById('view-title').classList.add('hidden');
             document.getElementById('app-main').classList.remove('hidden');
-            document.querySelectorAll('.glass-panel').forEach(c => { 
-                if(c.id !== 'view-title' && c.id !== 'app-main') c.classList.add('hidden'); 
-            });
+            document.querySelectorAll('.glass-panel').forEach(c => { if(c.id !== 'view-title' && c.id !== 'app-main') c.classList.add('hidden'); });
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(`view-${tab}`).classList.remove('hidden');
             document.getElementById(`tab-${tab}-btn`).classList.add('active');
@@ -600,12 +606,8 @@
         function updateCalcDisplay() { 
             document.getElementById('calc-res').innerText = currentTotal; 
             const b = document.getElementById('calc-bonus-res');
-            if(currentBonus > 0) {
-                b.style.display = "block";
-                b.innerText = `+${currentBonus}`;
-            } else {
-                b.style.display = "none";
-            }
+            b.style.display = (currentBonus > 0) ? "block" : "none";
+            b.innerText = `+${currentBonus}`;
         }
 
         function sendToSpecific(i) {
@@ -620,18 +622,15 @@
             render();
         }
 
-        // --- CSS CARD GENERATOR (NEON) ---
         function getCardHTML(val, isBonus) {
             const colors = {
                 12: '#ff2a2a', 11: '#ff9100', 10: '#ffd600', 9: '#00e676', 8: '#2979ff',
                 7: '#d500f9', 6: '#f50057', 5: '#00bfa5', 4: '#8d6e63', 3: '#78909c',
                 2: '#bdbdbd', 1: '#ffffff'
             };
-            
             let color = isBonus ? 'var(--bonus-green)' : (colors[val] || '#444');
             let displayVal = isBonus ? `+${val}` : val;
             let cardClass = isBonus ? 'bonus' : 'number';
-
             return `
             <div class="slick-card ${cardClass}" style="--c-bg: ${color};" onclick="${isBonus ? `cAddBonus(${val})` : `cAdd(${val})`}">
                 <div class="card-corner">${displayVal}</div>
@@ -643,10 +642,8 @@
         function renderCalc() {
             const vals = [12,11,10,9,8,7,6,5,4,3,2,1];
             document.getElementById('token-grid').innerHTML = vals.map(v => getCardHTML(v, false)).join('');
-            
             const bonuses = [2,4,6,8,10];
             document.getElementById('bonus-grid').innerHTML = bonuses.map(v => getCardHTML(v, true)).join('');
-            
             document.getElementById('send-player-list').innerHTML = data.p.map((p, i) => 
                 `<button class="menu-btn" style="padding:15px; border-color:var(--gold); color:var(--gold); margin:0;" onclick="sendToSpecific(${i})">${p.name}</button>`
             ).join('');
@@ -654,150 +651,77 @@
         }
 
         function syncInputs() {
-            data.p.forEach((p, i) => {
-                const el = document.getElementById(`i${i}`);
-                if (el) p.curVal = el.value;
-            });
+            data.p.forEach((p, i) => { const el = document.getElementById(`i${i}`); if (el) p.curVal = el.value; });
             save();
         }
 
-        function saveInput(i, val) {
-            data.p[i].curVal = val;
-            save();
-        }
-
-        function clearBonus(i) {
-            triggerHaptic();
-            data.p[i].bonusVal = 0;
-            save();
-            render();
-        }
+        function saveInput(i, val) { data.p[i].curVal = val; save(); }
+        function clearBonus(i) { triggerHaptic(); data.p[i].bonusVal = 0; save(); render(); }
 
         function addP() {
-            triggerHaptic();
-            syncInputs();
-            const n = document.getElementById('pname');
-            const name = n.value.trim();
-            if(name) { 
-                data.p.push({name: name, s: 0, bCount: 0, x2: false, f7: false, busted: false, curVal: "", bonusVal: 0}); 
-                n.value = ""; 
-                save(); 
-                render(); 
-            }
+            triggerHaptic(); syncInputs();
+            const n = document.getElementById('pname'); const name = n.value.trim();
+            if(name) { data.p.push({name: name, s: 0, bCount: 0, x2: false, f7: false, busted: false, curVal: "", bonusVal: 0}); n.value = ""; save(); render(); }
         }
 
         function triggerRemoveP(i) {
-            triggerHaptic('heavy');
-            syncInputs();
-            openConfirm(`Remove ${data.p[i].name}?`, (yes) => {
-                if(yes) {
-                    data.p.splice(i, 1);
-                    if(i < data.dealerIdx) data.dealerIdx--;
-                    if(data.dealerIdx >= data.p.length) data.dealerIdx = 0;
-                    save();
-                    render();
-                }
-            });
+            triggerHaptic('heavy'); syncInputs();
+            openConfirm(`Remove ${data.p[i].name}?`, (yes) => { if(yes) { data.p.splice(i, 1); if(i < data.dealerIdx) data.dealerIdx--; if(data.dealerIdx >= data.p.length) data.dealerIdx = 0; save(); render(); } });
         }
 
-        function toggleOpt(i, opt) { 
-            triggerHaptic();
-            syncInputs(); data.p[i][opt] = !data.p[i][opt]; save(); render(); 
-        }
+        function toggleOpt(i, opt) { triggerHaptic(); syncInputs(); data.p[i][opt] = !data.p[i][opt]; save(); render(); }
 
         function bustPlayer(i) {
-            syncInputs();
-            const p = data.p[i];
-            if(!p.busted) {
-                playSound('bust');
-                triggerHaptic('heavy');
-                p.prevData = { val: p.curVal, bonus: p.bonusVal, x2: p.x2, f7: p.f7 };
-                p.busted = true; p.bCount++; p.x2 = false; p.f7 = false; p.curVal = ""; p.bonusVal = 0;
-            } else {
-                triggerHaptic();
-                p.busted = false; p.bCount--;
-                if(p.prevData) {
-                    p.curVal = p.prevData.val; p.bonusVal = p.prevData.bonus || 0; 
-                    p.x2 = p.prevData.x2; p.f7 = p.prevData.f7;
-                }
-            }
+            syncInputs(); const p = data.p[i];
+            if(!p.busted) { playSound('bust'); triggerHaptic('heavy'); p.prevData = { val: p.curVal, bonus: p.bonusVal, x2: p.x2, f7: p.f7 }; p.busted = true; p.bCount++; p.x2 = false; p.f7 = false; p.curVal = ""; p.bonusVal = 0; } 
+            else { triggerHaptic(); p.busted = false; p.bCount--; if(p.prevData) { p.curVal = p.prevData.val; p.bonusVal = p.prevData.bonus || 0; p.x2 = p.prevData.x2; p.f7 = p.prevData.f7; } }
             save(); render();
         }
 
         function calc() {
-            triggerHaptic('heavy');
-            syncInputs();
+            triggerHaptic('heavy'); syncInputs();
             backupState = JSON.parse(JSON.stringify(data));
             let winner = null, roundActivity = false;
             data.p.forEach((p) => {
                 if(p.busted) { p.busted = false; roundActivity = true; return; }
-                let base = parseInt(p.curVal) || 0;
-                let bonus = p.bonusVal || 0;
+                let base = parseInt(p.curVal) || 0; let bonus = p.bonusVal || 0;
                 if(p.curVal !== "" || bonus > 0 || p.f7) {
-                    let score = p.x2 ? base * 2 : base;
-                    score += bonus;
-                    if(p.f7) score += 15;
-                    p.s += score;
-                    roundActivity = true;
+                    let score = p.x2 ? base * 2 : base; score += bonus; if(p.f7) score += 15;
+                    p.s += score; roundActivity = true;
                 }
                 if(p.s >= 200 && (!winner || p.s > winner.s)) winner = p;
                 p.x2 = false; p.f7 = false; p.curVal = ""; p.bonusVal = 0; p.prevData = null;
             });
-            if(roundActivity) {
-                data.round++; 
-                if (data.p.length > 0) { data.dealerIdx++; if (data.dealerIdx >= data.p.length) data.dealerIdx = 0; }
-                save(); render();
-                if(winner) showWinner(winner); else showToast("Round " + data.round);
-            } else { showToast("No scores entered"); }
+            if(roundActivity) { data.round++; if (data.p.length > 0) { data.dealerIdx++; if (data.dealerIdx >= data.p.length) data.dealerIdx = 0; } save(); render(); if(winner) showWinner(winner); else showToast("Round " + data.round); } else { showToast("No scores entered"); }
         }
 
         function showWinner(w) {
-            playSound('win');
-            startConfetti();
-            data.m.unshift({name: w.name, score: w.s, date: new Date().toLocaleDateString()});
-            if(data.m.length > 10) data.m.pop();
-            save();
-            document.getElementById('winner-display-name').innerText = w.name;
-            document.getElementById('winner-score-display').innerText = `${w.s} Pts!`;
-            document.getElementById('winner-modal').classList.add('show');
+            playSound('win'); startConfetti();
+            data.m.unshift({name: w.name, score: w.s, date: new Date().toLocaleDateString()}); if(data.m.length > 10) data.m.pop();
+            save(); document.getElementById('winner-display-name').innerText = w.name; document.getElementById('winner-score-display').innerText = `${w.s} Pts!`; document.getElementById('winner-modal').classList.add('show');
         }
 
-        function closeWinnerModal() { 
-            stopConfetti();
-            document.getElementById('winner-modal').classList.remove('show');
-            setTimeout(() => backToTitle(), 300);
-        }
-
-        function undoWin() {
-            if(!backupState) { showToast("Cannot undo"); return; }
-            triggerHaptic('heavy');
-            data = JSON.parse(JSON.stringify(backupState));
-            save(); render();
-            stopConfetti();
-            document.getElementById('winner-modal').classList.remove('show');
-            showToast("Round Undone");
-        }
+        function closeWinnerModal() { stopConfetti(); document.getElementById('winner-modal').classList.remove('show'); setTimeout(() => backToTitle(), 300); }
+        function undoWin() { if(!backupState) { showToast("Cannot undo"); return; } triggerHaptic('heavy'); data = JSON.parse(JSON.stringify(backupState)); save(); render(); stopConfetti(); document.getElementById('winner-modal').classList.remove('show'); showToast("Round Undone"); }
 
         function renderStats() {
             let html = `<div style="color:var(--gold); font-weight:900; margin-bottom:15px;">SESSION BUSTS</div>`;
             html += data.p.map(p => `<div>${p.name}: <span style="color:var(--bust-red)">${p.bCount}</span></div>`).join('');
             html += `<div style="color:var(--gold); font-weight:900; margin-top:30px;">MATCH HISTORY</div>`;
-            html += data.m.length ? data.m.map(m => `<div style="padding:5px; border-bottom:1px solid #333; display:flex; justify-content:space-between;"><span>${m.name}</span> <span style="color:var(--gold)">${m.score}</span></div>`).join('') : '<div style="color:#666">No matches recorded</div>';
+            html += data.m.length ? data.m.map(m => `<div style="padding:5px; border-bottom:1px solid var(--subtext); display:flex; justify-content:space-between; color:var(--text);"><span>${m.name}</span> <span style="color:var(--gold)">${m.score}</span></div>`).join('') : '<div style="color:var(--subtext)">No matches recorded</div>';
             document.getElementById('stats-content').innerHTML = html;
         }
 
         function render() {
             const max = Math.max(...data.p.map(p => p.s), 0);
+            document.getElementById('round-ind').innerText = "RND " + data.round;
             document.getElementById('players').innerHTML = data.p.map((p, i) => `
                 <div class="${p.busted ? 'is-busted-wrapper' : ''}" style="margin-bottom:15px;">
                     <div class="player-row ${max > 0 && p.s === max ? 'leader' : ''}">
                         <div class="p-header">
                             <div class="p-info">
                                 <div class="dealer-marker ${i === data.dealerIdx ? 'active' : ''}" onclick="setDealer(${i})">D</div>
-                                <div>
-                                    <small style="color:#888; text-transform:uppercase; font-size:0.7rem; font-weight:bold;">${p.name}</small>
-                                    <div class="score">${p.s}</div>
-                                </div>
+                                <div><small style="color:var(--subtext); text-transform:uppercase; font-size:0.7rem; font-weight:bold;">${p.name}</small><div class="score">${p.s}</div></div>
                             </div>
                             <div style="display:flex; gap:10px; align-items:center;">
                                 <button class="bust-btn ${p.busted ? 'undo-bust' : ''}" onclick="bustPlayer(${i})">${p.busted ? 'UN-BUST' : 'BUST'}</button>
@@ -815,8 +739,35 @@
                     </div>
                 </div>
             `).join('');
+            renderSettingsUI();
         }
         
+        /* --- INSTALL PROMPT --- */
+        window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; const btn = document.getElementById('install-btn'); if(btn) btn.style.display = 'block'; });
+        async function installApp() { if (deferredPrompt) { deferredPrompt.prompt(); const { outcome } = await deferredPrompt.userChoice; if (outcome === 'accepted') { document.getElementById('install-btn').style.display = 'none'; } deferredPrompt = null; } }
+
+        /* --- WAKE LOCK --- */
+        async function applyWakeLock() { if (!('wakeLock' in navigator)) return; try { if(data.keepAwake && document.visibilityState === 'visible') { wakeLockSentinel = await navigator.wakeLock.request('screen'); } } catch (err) { console.log(err); } }
+        async function toggleWakeLock() { if (!('wakeLock' in navigator)) { showToast("Not supported"); return; } data.keepAwake = !data.keepAwake; save(); renderSettingsUI(); if (data.keepAwake) { await applyWakeLock(); showToast("Screen Lock: ON"); } else { if (wakeLockSentinel) { await wakeLockSentinel.release(); wakeLockSentinel = null; } showToast("Screen Lock: OFF"); } }
+        document.addEventListener('visibilitychange', async () => { if (wakeLockSentinel !== null && document.visibilityState === 'visible') { await applyWakeLock(); } });
+
+        /* --- CONFETTI --- */
+        let confettiActive = false;
+        function startConfetti() {
+            const canvas = document.getElementById('confetti-canvas'); canvas.style.display = 'block'; canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+            const ctx = canvas.getContext('2d'); const particles = []; const colors = ['#40c4ff', '#ff2a2a', '#00e676', '#2979ff', '#d500f9'];
+            for(let i=0; i<100; i++) { particles.push({ x: Math.random() * canvas.width, y: Math.random() * -canvas.height, vx: Math.random() * 4 - 2, vy: Math.random() * 5 + 2, color: colors[Math.floor(Math.random() * colors.length)], size: Math.random() * 8 + 4 }); }
+            confettiActive = true;
+            function loop() {
+                if(!confettiActive) { ctx.clearRect(0,0,canvas.width,canvas.height); return; }
+                ctx.clearRect(0,0,canvas.width,canvas.height);
+                particles.forEach(p => { p.x += p.vx; p.y += p.vy; if(p.y > canvas.height) p.y = -10; ctx.fillStyle = p.color; ctx.fillRect(p.x, p.y, p.size, p.size); });
+                requestAnimationFrame(loop);
+            } loop();
+        }
+        function stopConfetti() { confettiActive = false; document.getElementById('confetti-canvas').style.display = 'none'; }
+
+        applyTheme();
         if(data.keepAwake) applyWakeLock();
         checkContinueStatus();
     </script>
