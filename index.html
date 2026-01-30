@@ -55,6 +55,7 @@
         .menu-btn.secondary { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); }
         .menu-btn.warn { background: rgba(255, 68, 68, 0.15); border: 1px solid rgba(255, 68, 68, 0.5); color: var(--bust-red); }
         .menu-btn.install { background: #2979ff; border: none; box-shadow: 0 0 15px rgba(41, 121, 255, 0.4); display: none; }
+        .menu-btn.coffee { border-color: #FFDD00; color: #FFDD00; background: rgba(255, 221, 0, 0.1); margin-top: 10px; font-size: 0.8rem; }
 
         .header-row { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 480px; margin-bottom: 10px; }
         h1 { color: var(--gold); margin: 0; font-size: 1rem; text-transform: uppercase; font-weight: 900; letter-spacing: 1px; text-shadow: 0 0 10px rgba(255, 204, 0, 0.3); }
@@ -175,7 +176,6 @@
     <div id="settings-modal" class="modal-overlay" onclick="closeSettings()">
         <div class="modal-box" onclick="event.stopPropagation()">
             <div class="modal-text" style="color:var(--gold); font-size: 1.5rem;">Settings</div>
-            
             <div class="setting-row">
                 <div style="text-align:left;">
                     <div style="font-weight:bold;">Audio</div>
@@ -183,7 +183,6 @@
                 </div>
                 <button id="sound-btn" class="toggle-btn" onclick="toggleSound()">OFF</button>
             </div>
-
             <div class="setting-row">
                 <div style="text-align:left;">
                     <div style="font-weight:bold;">Haptics</div>
@@ -191,7 +190,6 @@
                 </div>
                 <button id="haptic-btn" class="toggle-btn" onclick="toggleHaptics()">OFF</button>
             </div>
-
             <div class="setting-row">
                 <div style="text-align:left;">
                     <div style="font-weight:bold;">Keep Screen On</div>
@@ -199,7 +197,6 @@
                 </div>
                 <button id="wakelock-btn" class="toggle-btn" onclick="toggleWakeLock()">OFF</button>
             </div>
-            
             <button class="menu-btn secondary" onclick="closeSettings()" style="margin-top:20px;">CLOSE</button>
         </div>
     </div>
@@ -259,7 +256,10 @@
             <button class="menu-btn secondary" onclick="openRules()" style="flex:1;">📖 Rules</button>
         </div>
         <button class="menu-btn secondary" onclick="openSettings()" style="width:100%; margin-top:0;">⚙️ Settings</button>
+        
         <button id="install-btn" class="menu-btn install" onclick="installApp()">⬇️ Install App</button>
+        <button class="menu-btn coffee" onclick="window.open('https://buymeacoffee.com/unkieshane', '_blank')">☕ Buy Unkie Shane a Coffee</button>
+        
         <button class="menu-btn danger" onclick="clearRoster()">Clear Roster</button>
     </div>
 
@@ -385,7 +385,6 @@
         /* --- HAPTICS ENGINE --- */
         function triggerHaptic(type) {
             if (!data.haptics || !navigator.vibrate) return;
-            // Short tap for clicks, longer for actions
             const duration = (type === 'heavy') ? 40 : 8; 
             navigator.vibrate(duration);
         }
