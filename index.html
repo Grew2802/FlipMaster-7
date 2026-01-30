@@ -1,847 +1,825 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.4">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <meta name="theme-color" content="#0a0a0c">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="FlipMaster 7">
+    <title>FlipMaster 7</title>
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23111'/><rect x='5' y='5' width='90' height='90' rx='15' stroke='%23ffcc00' stroke-width='3' fill='none'/><text x='50' y='70' font-family='sans-serif' font-weight='900' font-size='60' text-anchor='middle' fill='%23ffcc00'>7</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23000'/><rect x='5' y='5' width='90' height='90' rx='18' stroke='%23ffcc00' stroke-width='4' fill='%231a1a1a'/><text x='50' y='70' font-family='sans-serif' font-weight='900' font-size='60' text-anchor='middle' fill='%23ffcc00'>7</text></svg>">
+
+    <style>
+        :root { 
+            --gold: #ffcc00; --bg: #0a0a0c; --card-bg: rgba(30, 30, 35, 0.85); 
+            --text: #fff; --subtext: #aaa; 
+            --f7-purple: #9c27b0; --bust-red: #ff4444; --bonus-green: #00e676;
+            
+            /* NEON Card Colors */
+            --c12: #ff2a2a; --c11: #ff9100; --c10: #ffd600; --c9: #00e676; --c8: #2979ff;
+            --c7: #d500f9; --c6: #f50057; --c5: #00bfa5; --c4: #8d6e63; --c3: #78909c;
+            --c2: #bdbdbd; --c1: #ffffff;
+        }
+
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            background: radial-gradient(circle at top, #1a1a2e 0%, #0a0a0c 100%); 
+            color: var(--text); display: flex; flex-direction: column; align-items: center; padding: 15px; margin: 0; min-height: 100vh;
+            padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom);
+            overflow-x: hidden; user-select: none; -webkit-user-select: none;
+        }
+
+        /* --- LAYOUT & GLASS PANELS --- */
+        .glass-panel { 
+            background: var(--card-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            padding: 20px; border-radius: 24px; width: 100%; max-width: 480px; 
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.08); box-sizing: border-box; 
+        }
+
+        .title-screen { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 85vh; }
+        .hero-logo { width: 120px; height: 120px; border-radius: 30px; margin-bottom: 20px; box-shadow: 0 0 30px rgba(255, 204, 0, 0.3); border: 2px solid var(--gold); background: #111; display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+        
+        /* --- BUTTONS --- */
+        .menu-btn, .opt-btn, .tab-btn, .bust-btn, .token, .submit-btn, .toggle-btn, .dealer-marker, .slick-card {
+            transition: all 0.1s; touch-action: manipulation; cursor: pointer;
+        }
+        .menu-btn:active, .opt-btn:active, .dealer-marker:active, .slick-card:active { transform: scale(0.95); filter: brightness(1.2); }
+
+        .menu-btn { width: 100%; padding: 18px; margin: 10px 0; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #fff; font-weight: 900; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; }
+        .menu-btn.primary { background: var(--gold); color: #000; border: none; box-shadow: 0 0 20px rgba(255, 204, 0, 0.2); }
+        .menu-btn.danger { border-color: rgba(255, 68, 68, 0.3); color: var(--bust-red); font-size: 0.8rem; margin-top: 30px; padding: 12px; }
+        .menu-btn.secondary { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); }
+        .menu-btn.warn { background: rgba(255, 68, 68, 0.15); border: 1px solid rgba(255, 68, 68, 0.5); color: var(--bust-red); }
+        .menu-btn.install { background: #2979ff; border: none; box-shadow: 0 0 15px rgba(41, 121, 255, 0.4); display: none; }
+
+        .header-row { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 480px; margin-bottom: 10px; }
+        h1 { color: var(--gold); margin: 0; font-size: 1rem; text-transform: uppercase; font-weight: 900; letter-spacing: 1px; text-shadow: 0 0 10px rgba(255, 204, 0, 0.3); }
+        .reset-action-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 68, 68, 0.2); color: var(--bust-red); padding: 10px 20px; border-radius: 14px; font-size: 0.7rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
+
+        .tab-container { display: flex; gap: 8px; margin-bottom: 20px; width: 100%; max-width: 480px; }
+        .tab-btn { flex: 1; padding: 12px; border-radius: 12px; background: rgba(255,255,255,0.05); color: var(--subtext); border: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem; font-weight: bold; }
+        .tab-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(255, 204, 0, 0.1); }
+
+        /* --- PLAYER ROW --- */
+        .player-row { background: rgba(255, 255, 255, 0.03); margin-bottom: 15px; padding: 18px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.1); position: relative; }
+        .leader { border: 1px solid var(--gold); box-shadow: 0 0 15px rgba(255, 204, 0, 0.1); }
+        .score { font-size: 2.2rem; font-weight: 900; color: var(--gold); }
+        .bonus-badge {
+            background: rgba(0, 230, 118, 0.1); border: 1px solid var(--bonus-green); color: var(--bonus-green);
+            padding: 4px 8px; border-radius: 8px; font-size: 0.8rem; font-weight: bold; margin-left: 5px; cursor: pointer;
+            box-shadow: 0 0 5px var(--bonus-green);
+        }
+
+        /* --- DEALER MARKER --- */
+        .p-header { display: flex; justify-content: space-between; align-items: center; }
+        .p-info { display: flex; align-items: center; gap: 10px; }
+        .dealer-marker { 
+            width: 28px; height: 28px; border-radius: 50%; 
+            border: 1px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.3);
+            color: #555; font-weight: bold; font-size: 0.8rem;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .dealer-marker.active {
+            background: #fff; color: #000; border-color: #fff;
+            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        .action-group { display: flex; gap: 8px; margin-top: 15px; }
+        .opt-btn { flex: 1; padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); color: var(--subtext); font-size: 0.7rem; font-weight: 800; }
+        .active-x2 { background: var(--gold) !important; color: #000 !important; }
+        .active-f7 { background: var(--f7-purple) !important; color: #fff !important; }
+        .delete-btn { border-color: rgba(255, 68, 68, 0.5); background: rgba(255, 68, 68, 0.15); color: var(--bust-red); flex: 0.5; font-weight: 900; font-size: 1.2rem; }
+
+        .is-busted-wrapper .player-row { filter: grayscale(1); opacity: 0.3; }
+        .bust-btn { background: var(--bust-red); color: white; padding: 8px 16px; border-radius: 20px; border: none; font-weight: 900; text-transform: uppercase; font-size: 0.7rem; white-space: nowrap; }
+        .undo-bust { background: rgba(255, 255, 255, 0.1) !important; color: var(--subtext) !important; border: 1px solid #444 !important; }
+
+        /* --- CARD CSS (NEON) --- */
+        .token-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 15px 0; }
+        .slick-card {
+            aspect-ratio: 2.5 / 3.5; border-radius: 12px;
+            display: flex; flex-direction: column; justify-content: space-between;
+            padding: 6px; position: relative; overflow: hidden;
+            background-color: #111; border: 2px solid var(--c-bg);
+            box-shadow: 0 0 5px var(--c-bg), inset 0 0 10px rgba(0,0,0,0.5);
+        }
+        .slick-card.number::before {
+            content: ''; position: absolute; inset: 0;
+            background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 10px 10px; pointer-events: none;
+        }
+        .slick-card.bonus {
+            background: linear-gradient(135deg, var(--c-bg), #004d40);
+            border: 2px solid rgba(255,255,255,0.8);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+        }
+        .slick-card.bonus .card-center, .slick-card.bonus .card-corner { color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .slick-card.number .card-center { color: var(--c-bg); font-size: 3.5rem; text-shadow: 0 0 10px var(--c-bg); }
+        .slick-card.number .card-corner { color: var(--c-bg); font-weight: 800; font-size: 1rem; text-shadow: 0 0 5px var(--c-bg); }
+        .card-center { font-size: 2.5rem; font-weight: 900; line-height: 1; align-self: center; z-index:2; margin-top: auto; margin-bottom: auto;}
+        .card-corner { font-size: 0.9rem; font-weight: bold; line-height: 1; z-index:2; padding: 2px; }
+        .card-corner.btm { align-self: flex-end; transform: rotate(180deg); }
+        .bonus-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 20px; }
+        .bonus-row .slick-card { aspect-ratio: 2.5/3.5; --c-bg: var(--bonus-green); }
+        .bonus-row .card-center { font-size: 1.6rem; }
+
+        .submit-btn { background: var(--gold); color: #000; width: 100%; padding: 16px; border-radius: 16px; font-weight: 900; border: none; font-size: 1rem; margin-top: 15px; }
+
+        /* --- UTILS --- */
+        .setting-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .toggle-btn { background: #333; color: #aaa; border: 1px solid #555; padding: 10px 20px; border-radius: 20px; font-weight: bold; font-size: 0.8rem; min-width: 80px; }
+        .toggle-btn.active { background: var(--gold); color: #000; border-color: var(--gold); }
+        .rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; text-align: left; }
+        .rule-card { background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px; font-size: 0.85rem; color: #ccc; }
+        .rule-card b { color: var(--gold); display: block; margin-bottom: 4px; }
+
+        /* --- CONFETTI CANVAS --- */
+        #confetti-canvas { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events: none; z-index: 10002; display: none; }
+
+        /* --- MODALS --- */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.9); z-index: 10000; display: none; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
+        .modal-overlay.show { display: flex !important; }
+        .modal-box { background: #1e1e24; border: 2px solid var(--gold); border-radius: 20px; padding: 25px; width: 100%; max-width: 350px; text-align: center; box-shadow: 0 0 50px rgba(0,0,0,0.8); position: relative; z-index: 10001; max-height: 85vh; overflow-y: auto; }
+        .modal-text { font-size: 1.2rem; font-weight: bold; color: #fff; margin-bottom: 25px; }
+        .modal-actions { display: flex; gap: 15px; }
+        .modal-btn { flex: 1; padding: 15px; border-radius: 12px; font-weight: bold; border: none; font-size: 1rem; cursor: pointer; }
+        .btn-cancel { background: #333; color: #fff; border: 1px solid #555; }
+        .btn-confirm { background: var(--gold); color: #000; }
+        
+        input[type="number"] { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 12px; border-radius: 12px; text-align: center; font-size: 1.1rem; -moz-appearance: textfield; width: 100%; max-width: 70px; }
+        input[type="text"] { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 12px; border-radius: 12px; text-align: center; font-size: 1.1rem; -moz-appearance: textfield; }
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        .hidden { display: none !important; }
+        .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #222; padding: 15px 25px; border-radius: 12px; border: 1px solid var(--gold); z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s; color: var(--gold); font-weight: bold; }
+        .toast.show { opacity: 1; }
+    </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="en"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"&gt;</p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="theme-color" content="#0a0a0c"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="apple-mobile-web-app-title" content="FlipMaster 7"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;FlipMaster 7&lt;/title&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;link rel="icon" href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'&gt;&lt;rect width='100' height='100' rx='20' fill='%23111'/&gt;&lt;rect x='5' y='5' width='90' height='90' rx='15' stroke='%23ffcc00' stroke-width='3' fill='none'/&gt;&lt;text x='50' y='70' font-family='sans-serif' font-weight='900' font-size='60' text-anchor='middle' fill='%23ffcc00'&gt;7&lt;/text&gt;&lt;/svg&gt;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;link rel="apple-touch-icon" href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'&gt;&lt;rect width='100' height='100' fill='%23000'/&gt;&lt;rect x='5' y='5' width='90' height='90' rx='18' stroke='%23ffcc00' stroke-width='4' fill='%231a1a1a'/&gt;&lt;text x='50' y='70' font-family='sans-serif' font-weight='900' font-size='60' text-anchor='middle' fill='%23ffcc00'&gt;7&lt;/text&gt;&lt;/svg&gt;"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>:root {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>--gold: #ffcc00; --bg: #0a0a0c; --card-bg: rgba(30, 30, 35, 0.85);<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>--text: #fff; --subtext: #aaa;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>--f7-purple: #9c27b0; --bust-red: #ff4444; --bonus-green: #00e676;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>/* NEON Card Colors */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--c12: #ff2a2a; --c11: #ff9100; --c10: #ffd600; --c9: #00e676; --c8: #2979ff;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--c7: #d500f9; --c6: #f50057; --c5: #00bfa5; --c4: #8d6e63; --c3: #78909c;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--c2: #bdbdbd; --c1: #ffffff;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>body {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: radial-gradient(circle at top, #1a1a2e 0%, #0a0a0c 100%);<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: var(--text);<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex; flex-direction: column; align-items: center;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 15px; margin: 0; min-height: 100vh;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>/* SAFE AREA FIX: Ensures status bar doesn't overlap on Pixel 8/Android */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding-top: max(env(safe-area-inset-top), 35px);<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding-bottom: max(env(safe-area-inset-bottom), 15px);</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>overflow-x: hidden; user-select: none; -webkit-user-select: none;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* --- LAYOUT &amp; GLASS PANELS --- */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.glass-panel {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: var(--card-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px; border-radius: 24px; width: 100%; max-width: 480px;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 8px 32px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.08); box-sizing: border-box;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.title-screen { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 85vh; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.hero-logo { width: 120px; height: 120px; border-radius: 30px; margin-bottom: 20px; box-shadow: 0 0 30px rgba(255, 204, 0, 0.3); border: 2px solid var(--gold); background: #111; display: flex; align-items: center; justify-content: center; font-size: 3rem; }</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* --- BUTTONS --- */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.menu-btn, .opt-btn, .tab-btn, .bust-btn, .token, .submit-btn, .toggle-btn, .dealer-marker, .slick-card {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.1s; touch-action: manipulation; cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.menu-btn:active, .opt-btn:active, .dealer-marker:active, .slick-card:active { transform: scale(0.95); filter: brightness(1.2); }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.menu-btn { width: 100%; padding: 18px; margin: 10px 0; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #fff; font-weight: 900; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.menu-btn.primary { background: var(--gold); color: #000; border: none; box-shadow: 0 0 20px rgba(255, 204, 0, 0.2); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.menu-btn.danger { border-color: rgba(255, 68, 68, 0.3); color: var(--bust-red); font-size: 0.8rem; margin-top: 30px; padding: 12px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.menu-btn.secondary { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.menu-btn.warn { background: rgba(255, 68, 68, 0.15); border: 1px solid rgba(255, 68, 68, 0.5); color: var(--bust-red); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.menu-btn.install { background: #2979ff; border: none; box-shadow: 0 0 15px rgba(41, 121, 255, 0.4); display: none; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.header-row { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 480px; margin-bottom: 10px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>h1 { color: var(--gold); margin: 0; font-size: 1rem; text-transform: uppercase; font-weight: 900; letter-spacing: 1px; text-shadow: 0 0 10px rgba(255, 204, 0, 0.3); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.reset-action-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 68, 68, 0.2); color: var(--bust-red); padding: 10px 20px; border-radius: 14px; font-size: 0.7rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.tab-container { display: flex; gap: 8px; margin-bottom: 20px; width: 100%; max-width: 480px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.tab-btn { flex: 1; padding: 12px; border-radius: 12px; background: rgba(255,255,255,0.05); color: var(--subtext); border: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem; font-weight: bold; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.tab-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(255, 204, 0, 0.1); }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* --- PLAYER ROW --- */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.player-row { background: rgba(255, 255, 255, 0.03); margin-bottom: 15px; padding: 18px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.1); position: relative; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.leader { border: 1px solid var(--gold); box-shadow: 0 0 15px rgba(255, 204, 0, 0.1); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.score { font-size: 2.2rem; font-weight: 900; color: var(--gold); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.bonus-badge {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(0, 230, 118, 0.1); border: 1px solid var(--bonus-green); color: var(--bonus-green);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 4px 8px; border-radius: 8px; font-size: 0.8rem; font-weight: bold; margin-left: 5px; cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 0 5px var(--bonus-green);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* --- DEALER MARKER --- */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.p-header { display: flex; justify-content: space-between; align-items: center; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.p-info { display: flex; align-items: center; gap: 10px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.dealer-marker {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 28px; height: 28px; border-radius: 50%;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.3);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #555; font-weight: bold; font-size: 0.8rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex; align-items: center; justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.dealer-marker.active {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: #fff; color: #000; border-color: #fff;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 0 10px rgba(255,255,255,0.5);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.action-group { display: flex; gap: 8px; margin-top: 15px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.opt-btn { flex: 1; padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); color: var(--subtext); font-size: 0.7rem; font-weight: 800; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.active-x2 { background: var(--gold) !important; color: #000 !important; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.active-f7 { background: var(--f7-purple) !important; color: #fff !important; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.delete-btn { border-color: rgba(255, 68, 68, 0.5); background: rgba(255, 68, 68, 0.15); color: var(--bust-red); flex: 0.5; font-weight: 900; font-size: 1.2rem; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.is-busted-wrapper .player-row { filter: grayscale(1); opacity: 0.3; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.bust-btn { background: var(--bust-red); color: white; padding: 8px 16px; border-radius: 20px; border: none; font-weight: 900; text-transform: uppercase; font-size: 0.7rem; white-space: nowrap; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.undo-bust { background: rgba(255, 255, 255, 0.1) !important; color: var(--subtext) !important; border: 1px solid #444 !important; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* --- CARD CSS (NEON) --- */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.token-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 15px 0; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.slick-card {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>aspect-ratio: 2.5 / 3.5; border-radius: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex; flex-direction: column; justify-content: space-between;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 6px; position: relative; overflow: hidden;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: #111; border: 2px solid var(--c-bg);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 0 5px var(--c-bg), inset 0 0 10px rgba(0,0,0,0.5);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.slick-card.number::before {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>content: ''; position: absolute; inset: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-size: 10px 10px; pointer-events: none;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.slick-card.bonus {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, var(--c-bg), #004d40);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: 2px solid rgba(255,255,255,0.8);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 4px 10px rgba(0,0,0,0.6);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.slick-card.bonus .card-center, .slick-card.bonus .card-corner { color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.slick-card.number .card-center { color: var(--c-bg); font-size: 3.5rem; text-shadow: 0 0 10px var(--c-bg); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.slick-card.number .card-corner { color: var(--c-bg); font-weight: 800; font-size: 1rem; text-shadow: 0 0 5px var(--c-bg); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.card-center { font-size: 2.5rem; font-weight: 900; line-height: 1; align-self: center; z-index:2; margin-top: auto; margin-bottom: auto;}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.card-corner { font-size: 0.9rem; font-weight: bold; line-height: 1; z-index:2; padding: 2px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.card-corner.btm { align-self: flex-end; transform: rotate(180deg); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.bonus-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 20px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.bonus-row .slick-card { aspect-ratio: 2.5/3.5; --c-bg: var(--bonus-green); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.bonus-row .card-center { font-size: 1.6rem; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.submit-btn { background: var(--gold); color: #000; width: 100%; padding: 16px; border-radius: 16px; font-weight: 900; border: none; font-size: 1rem; margin-top: 15px; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* --- UTILS --- */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.setting-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.toggle-btn { background: #333; color: #aaa; border: 1px solid #555; padding: 10px 20px; border-radius: 20px; font-weight: bold; font-size: 0.8rem; min-width: 80px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.toggle-btn.active { background: var(--gold); color: #000; border-color: var(--gold); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; text-align: left; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.rule-card { background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px; font-size: 0.85rem; color: #ccc; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.rule-card b { color: var(--gold); display: block; margin-bottom: 4px; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* --- CONFETTI CANVAS --- */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#confetti-canvas { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events: none; z-index: 10002; display: none; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* --- MODALS --- */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.9); z-index: 10000; display: none; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.modal-overlay.show { display: flex !important; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.modal-box { background: #1e1e24; border: 2px solid var(--gold); border-radius: 20px; padding: 25px; width: 100%; max-width: 350px; text-align: center; box-shadow: 0 0 50px rgba(0,0,0,0.8); position: relative; z-index: 10001; max-height: 85vh; overflow-y: auto; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.modal-text { font-size: 1.2rem; font-weight: bold; color: #fff; margin-bottom: 25px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.modal-actions { display: flex; gap: 15px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.modal-btn { flex: 1; padding: 15px; border-radius: 12px; font-weight: bold; border: none; font-size: 1rem; cursor: pointer; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.btn-cancel { background: #333; color: #fff; border: 1px solid #555; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.btn-confirm { background: var(--gold); color: #000; }</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>input[type="number"] { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 12px; border-radius: 12px; text-align: center; font-size: 1.1rem; -moz-appearance: textfield; width: 100%; max-width: 70px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>input[type="text"] { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 12px; border-radius: 12px; text-align: center; font-size: 1.1rem; -moz-appearance: textfield; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.hidden { display: none !important; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #222; padding: 15px 25px; border-radius: 12px; border: 1px solid var(--gold); z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s; color: var(--gold); font-weight: bold; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.toast.show { opacity: 1; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;canvas id="confetti-canvas"&gt;&lt;/canvas&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="confirm-modal" class="modal-overlay" onclick="resolveConfirm(false)"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="modal-box" onclick="event.stopPropagation()"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="confirm-message" class="modal-text"&gt;Are you sure?&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="modal-actions"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;button class="modal-btn btn-cancel" onclick="resolveConfirm(false)"&gt;CANCEL&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;button class="modal-btn btn-confirm" onclick="resolveConfirm(true)"&gt;CONFIRM&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="settings-modal" class="modal-overlay" onclick="closeSettings()"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="modal-box" onclick="event.stopPropagation()"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="modal-text" style="color:var(--gold); font-size: 1.5rem;"&gt;Settings&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="setting-row"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div style="text-align:left;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div style="font-weight:bold;"&gt;Audio&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;small style="color:#666;"&gt;Sound effects&lt;/small&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;button id="sound-btn" class="toggle-btn" onclick="toggleSound()"&gt;OFF&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="setting-row"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div style="text-align:left;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div style="font-weight:bold;"&gt;Haptics&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;small style="color:#666;"&gt;Vibrate on tap&lt;/small&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;button id="haptic-btn" class="toggle-btn" onclick="toggleHaptics()"&gt;OFF&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="setting-row"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div style="text-align:left;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div style="font-weight:bold;"&gt;Keep Screen On&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;small style="color:#666;"&gt;Prevents phone sleeping&lt;/small&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;button id="wakelock-btn" class="toggle-btn" onclick="toggleWakeLock()"&gt;OFF&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="menu-btn secondary" onclick="closeSettings()" style="margin-top:20px;"&gt;CLOSE&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="rules-modal" class="modal-overlay" onclick="closeRules()"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="modal-box" onclick="event.stopPropagation()"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="modal-text" style="color:var(--gold); font-size: 1.5rem;"&gt;Rules &amp; Odds&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p style="color:#aaa; font-size:0.9rem; margin-bottom:20px;"&gt;Goal: Reach 200 points. &lt;br&gt;&lt;span style="color:var(--gold)"&gt;Highest number = Most common!&lt;/span&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div style="background:rgba(255,255,255,0.1); padding:10px; border-radius:10px; margin-bottom:20px;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div style="font-weight:bold; color:var(--gold); margin-bottom:5px;"&gt;NUMBER CARDS&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div style="display:grid; grid-template-columns: 1fr 1fr; gap:5px; font-size:0.8rem; text-align:left;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div&gt;Value &lt;b&gt;12&lt;/b&gt;: 12 cards&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div&gt;Value &lt;b&gt;11&lt;/b&gt;: 11 cards&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div&gt;Value &lt;b&gt;10&lt;/b&gt;: 10 cards&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div&gt;Value &lt;b&gt;9&lt;/b&gt;: 9 cards&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div&gt;Value &lt;b&gt;8&lt;/b&gt;: 8 cards&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div&gt;Value &lt;b&gt;7&lt;/b&gt;: 7 cards&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div&gt;Value &lt;b&gt;6&lt;/b&gt;: 6 cards&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div&gt;Value &lt;b&gt;5&lt;/b&gt;: 5 cards&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div&gt;Value &lt;b&gt;4&lt;/b&gt;: 4 cards&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div&gt;Value &lt;b&gt;3&lt;/b&gt;: 3 cards&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div&gt;Value &lt;b&gt;2&lt;/b&gt;: 2 cards&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div style="color:var(--gold)"&gt;Value &lt;b&gt;1&lt;/b&gt;: 1 card&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="rules-grid"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="rule-card"&gt;&lt;b&gt;Special Cards&lt;/b&gt;Freeze, Flip 3, Second Chance (3 of each in deck).&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="rule-card"&gt;&lt;b&gt;Modifiers&lt;/b&gt;+2, +4, +6, +8, +10 (1 of each).&lt;br&gt;x2 Multiplier (1 total).&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="rule-card"&gt;&lt;b&gt;Scoring Order&lt;/b&gt;1. Sum Numbers&lt;br&gt;2. Multiply (x2)&lt;br&gt;3. Add Bonus Cards&lt;br&gt;4. Flip 7 Bonus (+15)&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="rule-card"&gt;&lt;b&gt;Flip 7&lt;/b&gt;If you get 7 unique numbers, round ends immediately. +15 Pts.&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="menu-btn secondary" onclick="closeRules()" style="margin-top:20px;"&gt;CLOSE&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="winner-modal" class="modal-overlay"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="modal-box" style="max-width: 400px; border-color: var(--gold);"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div style="font-size:4rem; margin-bottom: 10px;"&gt;👑&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="winner-display-name" style="font-size: 2rem; color: var(--gold); font-weight: 900;"&gt;---&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p id="winner-score-display" style="color:#aaa; margin-bottom: 30px;"&gt;Winner!&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="menu-btn primary" onclick="startNewMatch()"&gt;RESET SCORES &amp; REPLAY&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="menu-btn warn" onclick="undoWin()"&gt;UNDO&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button onclick="closeWinnerModal()" style="background:transparent; color:#888; width:100%; padding:15px; border:none; margin-top:5px; cursor:pointer;"&gt;RETURN TO MENU&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="toast" class="toast"&gt;&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="view-title" class="title-screen glass-panel"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="hero-logo"&gt;🎴&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h1 style="font-size: 1.8rem; margin-bottom: 5px;"&gt;FLIPMASTER 7&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p style="color: var(--subtext); font-size: 0.8rem; margin-bottom: 30px; letter-spacing: 2px;"&gt;SCORER&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="menu-btn primary" id="btn-start" onclick="startNewMatch()"&gt;Start New Match&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="menu-btn" id="continue-btn" onclick="switchTab('game')" style="display:none;"&gt;Continue Match&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div style="display:flex; gap:10px; width:100%;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="menu-btn secondary" onclick="switchTab('stats')" style="flex:1;"&gt;History&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="menu-btn secondary" onclick="openRules()" style="flex:1;"&gt;📖 Rules&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="menu-btn secondary" onclick="openSettings()" style="width:100%; margin-top:0;"&gt;⚙️ Settings&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button id="install-btn" class="menu-btn install" onclick="installApp()"&gt;⬇️ Install App&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="menu-btn danger" onclick="clearRoster()"&gt;Clear Roster&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="app-main" class="hidden" style="width: 100%; max-width: 480px;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="header-row"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h1&gt;Scorer&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="reset-action-btn" onclick="backToTitle()"&gt;MENU&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tab-container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="tab-btn active" id="tab-game-btn" onclick="switchTab('game')"&gt;SCORES&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="tab-btn" id="tab-calc-btn" onclick="switchTab('calc')"&gt;CALC&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="tab-btn" id="tab-stats-btn" onclick="switchTab('stats')"&gt;LOG&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="view-game" class="glass-panel"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="players"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div style="display:flex; gap:10px; margin-top:20px;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;input type="text" id="pname" placeholder="Name..." style="flex:1;" onkeydown="if(event.key === 'Enter') addP()"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;button onclick="addP()" style="background:var(--gold); color:#000; border:none; padding:0 20px; border-radius:12px; font-weight:bold; font-size:1.5rem;"&gt;+&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="submit-btn" onclick="calc()"&gt;SUBMIT ROUND&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="view-calc" class="glass-panel hidden"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div style="text-align:center; font-size: 3.5rem; font-weight: 900; margin-bottom:10px; display:flex; align-items:center; justify-content:center; gap:10px;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;span id="calc-res" style="color:var(--gold)"&gt;0&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;span id="calc-bonus-res" style="font-size:1.5rem; color:var(--bonus-green); display:none;"&gt;+0&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="token-grid" class="token-grid"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div style="text-align:center; margin-top:20px; margin-bottom:5px; color:#aaa; font-size:0.8rem; font-weight:bold;"&gt;BONUS CARDS (Not X2)&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="bonus-grid" class="bonus-row"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div style="display:flex; gap:10px; margin-top:15px;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                 </span>&lt;button onclick="cClear()" style="flex:1; background:rgba(255,255,255,0.05); color:#fff; border:1px solid rgba(255,255,255,0.1); padding:15px; border-radius:15px; font-weight:bold;"&gt;CLR&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="send-player-list" style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:20px;"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="view-stats" class="glass-panel hidden"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button onclick="backToTitle()" style="width:100%; background:rgba(255,255,255,0.05); color:#fff; border:none; padding:10px; border-radius:10px; margin-bottom:15px; font-size:0.7rem;"&gt;← BACK&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="stats-content"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Data Init</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let data = JSON.parse(localStorage.getItem('unkie_f7_local')) || {p:[], m:[], round:1, keepAwake: false, sound: true, haptics: true, dealerIdx: 0};</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if(typeof data.dealerIdx === 'undefined') data.dealerIdx = 0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if(typeof data.sound === 'undefined') data.sound = true;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if(typeof data.haptics === 'undefined') data.haptics = true;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>data.p.forEach(p =&gt; { if(typeof p.bonusVal === 'undefined') p.bonusVal = 0; });</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>let currentTotal = 0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let currentBonus = 0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let confirmCallback = null;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let wakeLockSentinel = null;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let backupState = null;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let deferredPrompt = null;</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Sound Context</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let audioCtx = null;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const save = () =&gt; localStorage.setItem('unkie_f7_local', JSON.stringify(data));</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function showToast(msg) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const t = document.getElementById('toast');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>t.innerText = msg; t.classList.add('show');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>setTimeout(() =&gt; t.classList.remove('show'), 2000);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* --- SOUND ENGINE --- */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function initAudio() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (audioCtx.state === 'suspended') audioCtx.resume();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function playSound(type) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (!data.sound) return;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>initAudio();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const osc = audioCtx.createOscillator();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const gain = audioCtx.createGain();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>osc.connect(gain);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>gain.connect(audioCtx.destination);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const now = audioCtx.currentTime;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (type === 'click') {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>osc.type = 'sine';</p>
-<p class="p1"><span class="Apple-converted-space">                </span>osc.frequency.setValueAtTime(800, now);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>osc.frequency.exponentialRampToValueAtTime(300, now + 0.1);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>gain.gain.setValueAtTime(0.1, now);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>osc.start(now); osc.stop(now + 0.1);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>else if (type === 'bust') {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>osc.type = 'sawtooth';</p>
-<p class="p1"><span class="Apple-converted-space">                </span>osc.frequency.setValueAtTime(150, now);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>osc.frequency.linearRampToValueAtTime(50, now + 0.4);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>gain.gain.setValueAtTime(0.2, now);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>gain.gain.linearRampToValueAtTime(0.01, now + 0.4);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>osc.start(now); osc.stop(now + 0.4);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>else if (type === 'win') {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>// Arpeggio</p>
-<p class="p1"><span class="Apple-converted-space">                </span>[440, 554, 659, 880].forEach((freq, i) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const o = audioCtx.createOscillator();</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const g = audioCtx.createGain();</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>o.connect(g); g.connect(audioCtx.destination);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>o.type = 'triangle';</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>o.frequency.value = freq;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>g.gain.setValueAtTime(0.1, now + i*0.1);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>g.gain.exponentialRampToValueAtTime(0.01, now + i*0.1 + 0.3);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>o.start(now + i*0.1); o.stop(now + i*0.1 + 0.3);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function toggleSound() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>data.sound = !data.sound;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>save(); renderSettingsUI();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if(data.sound) playSound('click');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* --- HAPTICS ENGINE --- */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function triggerHaptic(type) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (!data.haptics || !navigator.vibrate) return;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Short tap for clicks, longer for actions</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const duration = (type === 'heavy') ? 40 : 8;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>navigator.vibrate(duration);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function toggleHaptics() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>data.haptics = !data.haptics;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>save(); renderSettingsUI();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if(data.haptics) triggerHaptic('heavy');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* --- CONFETTI ENGINE --- */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let confettiActive = false;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function startConfetti() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const canvas = document.getElementById('confetti-canvas');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>canvas.style.display = 'block';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>canvas.width = window.innerWidth;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>canvas.height = window.innerHeight;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const ctx = canvas.getContext('2d');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const particles = [];</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const colors = ['#ffcc00', '#ff2a2a', '#00e676', '#2979ff', '#d500f9'];</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>for(let i=0; i&lt;100; i++) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>particles.push({</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>x: Math.random() * canvas.width, y: Math.random() * -canvas.height,</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>vx: Math.random() * 4 - 2, vy: Math.random() * 5 + 2,</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>color: colors[Math.floor(Math.random() * colors.length)],</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>size: Math.random() * 8 + 4</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>confettiActive = true;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>function loop() {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if(!confettiActive) { ctx.clearRect(0,0,canvas.width,canvas.height); return; }</p>
-<p class="p1"><span class="Apple-converted-space">                </span>ctx.clearRect(0,0,canvas.width,canvas.height);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>particles.forEach(p =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>p.x += p.vx; p.y += p.vy;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if(p.y &gt; canvas.height) p.y = -10;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>ctx.fillStyle = p.color;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>ctx.fillRect(p.x, p.y, p.size, p.size);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p1"><span class="Apple-converted-space">                </span>requestAnimationFrame(loop);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>loop();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function stopConfetti() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>confettiActive = false;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('confetti-canvas').style.display = 'none';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* --- PWA INSTALL --- */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>window.addEventListener('beforeinstallprompt', (e) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>e.preventDefault();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>deferredPrompt = e;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const btn = document.getElementById('install-btn');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if(btn) btn.style.display = 'block';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>async function installApp() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (deferredPrompt) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>deferredPrompt.prompt();</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const { outcome } = await deferredPrompt.userChoice;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (outcome === 'accepted') {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>document.getElementById('install-btn').style.display = 'none';</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>deferredPrompt = null;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* --- WAKE LOCK --- */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>async function applyWakeLock() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (!('wakeLock' in navigator)) return;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if(data.keepAwake &amp;&amp; document.visibilityState === 'visible') {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>wakeLockSentinel = await navigator.wakeLock.request('screen');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} catch (err) { console.log(err); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>async function toggleWakeLock() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (!('wakeLock' in navigator)) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>showToast("Not supported");</p>
-<p class="p1"><span class="Apple-converted-space">                </span>return;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>data.keepAwake = !data.keepAwake;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>save();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>renderSettingsUI();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (data.keepAwake) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>await applyWakeLock();</p>
-<p class="p1"><span class="Apple-converted-space">                </span>showToast("Screen Lock: ON");</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (wakeLockSentinel) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>await wakeLockSentinel.release();</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>wakeLockSentinel = null;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>showToast("Screen Lock: OFF");</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.addEventListener('visibilitychange', async () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (wakeLockSentinel !== null &amp;&amp; document.visibilityState === 'visible') {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>await applyWakeLock();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* --- UI LOGIC --- */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function openSettings() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>renderSettingsUI();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('settings-modal').classList.add('show');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function closeSettings() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('settings-modal').classList.remove('show');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function renderSettingsUI() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const wakeBtn = document.getElementById('wakelock-btn');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (data.keepAwake) { wakeBtn.classList.add('active'); wakeBtn.innerText = "ON"; }<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>else { wakeBtn.classList.remove('active'); wakeBtn.innerText = "OFF"; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const soundBtn = document.getElementById('sound-btn');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (data.sound) { soundBtn.classList.add('active'); soundBtn.innerText = "ON"; }</p>
-<p class="p1"><span class="Apple-converted-space">            </span>else { soundBtn.classList.remove('active'); soundBtn.innerText = "OFF"; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const hapticBtn = document.getElementById('haptic-btn');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (data.haptics) { hapticBtn.classList.add('active'); hapticBtn.innerText = "ON"; }</p>
-<p class="p1"><span class="Apple-converted-space">            </span>else { hapticBtn.classList.remove('active'); hapticBtn.innerText = "OFF"; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function openRules() { document.getElementById('rules-modal').classList.add('show'); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function closeRules() { document.getElementById('rules-modal').classList.remove('show'); }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function openConfirm(message, callback) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('confirm-message').textContent = message;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('confirm-modal').classList.add('show');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>confirmCallback = callback;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function resolveConfirm(result) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('confirm-modal').classList.remove('show');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (confirmCallback) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const cb = confirmCallback; confirmCallback = null; cb(result);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function setDealer(i) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>triggerHaptic();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (data.dealerIdx === i) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>data.dealerIdx++;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (data.dealerIdx &gt;= data.p.length) data.dealerIdx = 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>data.dealerIdx = i;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>save();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>render();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* --- GAME LOGIC --- */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function startNewMatch() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>triggerHaptic('heavy');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('winner-modal').classList.remove('show');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const hasScores = data.p.some(p =&gt; p.s &gt; 0);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const doStart = () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>data.p.forEach(p =&gt; {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>p.s = 0; p.bCount = 0; p.x2 = false; p.f7 = false;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>p.busted = false; p.curVal = ""; p.bonusVal = 0; p.prevData = null;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p1"><span class="Apple-converted-space">                </span>data.round = 1; save(); switchTab('game');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>};</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if(hasScores) { openConfirm("Reset all scores to 0?", (yes) =&gt; { if(yes) doStart(); }); } else { doStart(); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function clearRoster() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>triggerHaptic('heavy');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>openConfirm("Delete ALL players?", (yes) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if(yes) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>data.p = []; data.dealerIdx = 0; save(); render();</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>showToast("Roster Cleared"); checkContinueStatus();</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function backToTitle() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>syncInputs();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('app-main').classList.add('hidden');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('view-title').classList.remove('hidden');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>checkContinueStatus();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function checkContinueStatus() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const hasPlayers = data.p.length &gt; 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('continue-btn').style.display = hasPlayers ? 'block' : 'none';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('btn-start').innerText = hasPlayers ? 'Reset Scores' : 'Start New Match';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function switchTab(tab) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>triggerHaptic();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if(!document.getElementById('view-game').classList.contains('hidden')) syncInputs();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('view-title').classList.add('hidden');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('app-main').classList.remove('hidden');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.querySelectorAll('.glass-panel').forEach(c =&gt; {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>if(c.id !== 'view-title' &amp;&amp; c.id !== 'app-main') c.classList.add('hidden');<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.querySelectorAll('.tab-btn').forEach(b =&gt; b.classList.remove('active'));</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById(`view-${tab}`).classList.remove('hidden');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById(`tab-${tab}-btn`).classList.add('active');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if(tab === 'calc') renderCalc();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if(tab === 'stats') renderStats();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if(tab === 'game') render();<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function cAdd(v) { playSound('click'); triggerHaptic(); currentTotal += v; updateCalcDisplay(); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function cAddBonus(v) { playSound('click'); triggerHaptic(); currentBonus += v; updateCalcDisplay(); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function cClear() { triggerHaptic(); currentTotal = 0; currentBonus = 0; updateCalcDisplay(); }</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function updateCalcDisplay() {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('calc-res').innerText = currentTotal;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const b = document.getElementById('calc-bonus-res');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if(currentBonus &gt; 0) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>b.style.display = "block";</p>
-<p class="p1"><span class="Apple-converted-space">                </span>b.innerText = `+${currentBonus}`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>b.style.display = "none";</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function sendToSpecific(i) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>triggerHaptic('heavy');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>data.p[i].curVal = currentTotal.toString();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>data.p[i].bonusVal = currentBonus;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>cClear(); save();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('view-calc').classList.add('hidden');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('view-game').classList.remove('hidden');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('tab-calc-btn').classList.remove('active');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('tab-game-btn').classList.add('active');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>render();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- CSS CARD GENERATOR (NEON) ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function getCardHTML(val, isBonus) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const colors = {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>12: '#ff2a2a', 11: '#ff9100', 10: '#ffd600', 9: '#00e676', 8: '#2979ff',</p>
-<p class="p1"><span class="Apple-converted-space">                </span>7: '#d500f9', 6: '#f50057', 5: '#00bfa5', 4: '#8d6e63', 3: '#78909c',</p>
-<p class="p1"><span class="Apple-converted-space">                </span>2: '#bdbdbd', 1: '#ffffff'</p>
-<p class="p1"><span class="Apple-converted-space">            </span>};</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>let color = isBonus ? 'var(--bonus-green)' : (colors[val] || '#444');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>let displayVal = isBonus ? `+${val}` : val;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>let cardClass = isBonus ? 'bonus' : 'number';</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>return `</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="slick-card ${cardClass}" style="--c-bg: ${color};" onclick="${isBonus ? `cAddBonus(${val})` : `cAdd(${val})`}"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="card-corner"&gt;${displayVal}&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="card-center"&gt;${displayVal}&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="card-corner btm"&gt;${displayVal}&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function renderCalc() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const vals = [12,11,10,9,8,7,6,5,4,3,2,1];</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('token-grid').innerHTML = vals.map(v =&gt; getCardHTML(v, false)).join('');</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const bonuses = [2,4,6,8,10];</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('bonus-grid').innerHTML = bonuses.map(v =&gt; getCardHTML(v, true)).join('');</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('send-player-list').innerHTML = data.p.map((p, i) =&gt;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>`&lt;button class="menu-btn" style="padding:15px; border-color:var(--gold); color:var(--gold); margin:0;" onclick="sendToSpecific(${i})"&gt;${p.name}&lt;/button&gt;`</p>
-<p class="p1"><span class="Apple-converted-space">            </span>).join('');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>cClear();<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function syncInputs() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>data.p.forEach((p, i) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const el = document.getElementById(`i${i}`);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (el) p.curVal = el.value;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>save();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function saveInput(i, val) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>data.p[i].curVal = val;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>save();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function clearBonus(i) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>triggerHaptic();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>data.p[i].bonusVal = 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>save();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>render();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function addP() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>triggerHaptic();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>syncInputs();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const n = document.getElementById('pname');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const name = n.value.trim();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if(name) {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>data.p.push({name: name, s: 0, bCount: 0, x2: false, f7: false, busted: false, curVal: "", bonusVal: 0});<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>n.value = "";<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>save();<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>render();<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function triggerRemoveP(i) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>triggerHaptic('heavy');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>syncInputs();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>openConfirm(`Remove ${data.p[i].name}?`, (yes) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if(yes) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>data.p.splice(i, 1);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if(i &lt; data.dealerIdx) data.dealerIdx--;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if(data.dealerIdx &gt;= data.p.length) data.dealerIdx = 0;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>save();</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>render();</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function toggleOpt(i, opt) {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>triggerHaptic();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>syncInputs(); data.p[i][opt] = !data.p[i][opt]; save(); render();<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function bustPlayer(i) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>syncInputs();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const p = data.p[i];</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if(!p.busted) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>playSound('bust');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>triggerHaptic('heavy');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>p.prevData = { val: p.curVal, bonus: p.bonusVal, x2: p.x2, f7: p.f7 };</p>
-<p class="p1"><span class="Apple-converted-space">                </span>p.busted = true; p.bCount++; p.x2 = false; p.f7 = false; p.curVal = ""; p.bonusVal = 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>triggerHaptic();</p>
-<p class="p1"><span class="Apple-converted-space">                </span>p.busted = false; p.bCount--;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if(p.prevData) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>p.curVal = p.prevData.val; p.bonusVal = p.prevData.bonus || 0;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>p.x2 = p.prevData.x2; p.f7 = p.prevData.f7;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>save(); render();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function calc() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>triggerHaptic('heavy');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>syncInputs();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>backupState = JSON.parse(JSON.stringify(data));</p>
-<p class="p1"><span class="Apple-converted-space">            </span>let winner = null, roundActivity = false;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>data.p.forEach((p) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if(p.busted) { p.busted = false; roundActivity = true; return; }</p>
-<p class="p1"><span class="Apple-converted-space">                </span>let base = parseInt(p.curVal) || 0;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>let bonus = p.bonusVal || 0;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if(p.curVal !== "" || bonus &gt; 0 || p.f7) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>let score = p.x2 ? base * 2 : base;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>score += bonus;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if(p.f7) score += 15;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>p.s += score;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>roundActivity = true;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if(p.s &gt;= 200 &amp;&amp; (!winner || p.s &gt; winner.s)) winner = p;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>p.x2 = false; p.f7 = false; p.curVal = ""; p.bonusVal = 0; p.prevData = null;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if(roundActivity) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>data.round++;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (data.p.length &gt; 0) { data.dealerIdx++; if (data.dealerIdx &gt;= data.p.length) data.dealerIdx = 0; }</p>
-<p class="p1"><span class="Apple-converted-space">                </span>save(); render();</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if(winner) showWinner(winner); else showToast("Round " + data.round);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} else { showToast("No scores entered"); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function showWinner(w) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>playSound('win');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>startConfetti();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>data.m.unshift({name: w.name, score: w.s, date: new Date().toLocaleDateString()});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if(data.m.length &gt; 10) data.m.pop();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>save();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('winner-display-name').innerText = w.name;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('winner-score-display').innerText = `${w.s} Pts!`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('winner-modal').classList.add('show');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function closeWinnerModal() {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>stopConfetti();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('winner-modal').classList.remove('show');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>setTimeout(() =&gt; backToTitle(), 300);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function undoWin() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if(!backupState) { showToast("Cannot undo"); return; }</p>
-<p class="p1"><span class="Apple-converted-space">            </span>triggerHaptic('heavy');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>data = JSON.parse(JSON.stringify(backupState));</p>
-<p class="p1"><span class="Apple-converted-space">            </span>save(); render();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>stopConfetti();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('winner-modal').classList.remove('show');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>showToast("Round Undone");</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function renderStats() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>let html = `&lt;div style="color:var(--gold); font-weight:900; margin-bottom:15px;"&gt;SESSION BUSTS&lt;/div&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>html += data.p.map(p =&gt; `&lt;div&gt;${p.name}: &lt;span style="color:var(--bust-red)"&gt;${p.bCount}&lt;/span&gt;&lt;/div&gt;`).join('');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>html += `&lt;div style="color:var(--gold); font-weight:900; margin-top:30px;"&gt;MATCH HISTORY&lt;/div&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>html += data.m.length ? data.m.map(m =&gt; `&lt;div style="padding:5px; border-bottom:1px solid #333; display:flex; justify-content:space-between;"&gt;&lt;span&gt;${m.name}&lt;/span&gt; &lt;span style="color:var(--gold)"&gt;${m.score}&lt;/span&gt;&lt;/div&gt;`).join('') : '&lt;div style="color:#666"&gt;No matches recorded&lt;/div&gt;';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('stats-content').innerHTML = html;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function render() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const max = Math.max(...data.p.map(p =&gt; p.s), 0);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('players').innerHTML = data.p.map((p, i) =&gt; `</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="${p.busted ? 'is-busted-wrapper' : ''}" style="margin-bottom:15px;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="player-row ${max &gt; 0 &amp;&amp; p.s === max ? 'leader' : ''}"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="p-header"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="p-info"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="dealer-marker ${i === data.dealerIdx ? 'active' : ''}" onclick="setDealer(${i})"&gt;D&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;small style="color:#888; text-transform:uppercase; font-size:0.7rem; font-weight:bold;"&gt;${p.name}&lt;/small&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div class="score"&gt;${p.s}&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div style="display:flex; gap:10px; align-items:center;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;button class="bust-btn ${p.busted ? 'undo-bust' : ''}" onclick="bustPlayer(${i})"&gt;${p.busted ? 'UN-BUST' : 'BUST'}&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div style="display:flex; align-items:center;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;input type="number" inputmode="numeric" pattern="[0-9]*" id="i${i}" placeholder="0" value="${p.curVal}" oninput="saveInput(${i}, this.value)"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>${p.bonusVal &gt; 0 ? `&lt;div class="bonus-badge" onclick="clearBonus(${i})"&gt;+${p.bonusVal}&lt;/div&gt;` : ''}</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="action-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;button class="opt-btn ${p.x2 ? 'active-x2' : ''}" onclick="toggleOpt(${i}, 'x2')"&gt;X2&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;button class="opt-btn ${p.f7 ? 'active-f7' : ''}" onclick="toggleOpt(${i}, 'f7')"&gt;Flip 7&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;button class="opt-btn delete-btn" onclick="triggerRemoveP(${i})"&gt;🗑️&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>`).join('');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>if(data.keepAwake) applyWakeLock();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>checkContinueStatus();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <div id="confirm-modal" class="modal-overlay" onclick="resolveConfirm(false)">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <div id="confirm-message" class="modal-text">Are you sure?</div>
+            <div class="modal-actions">
+                <button class="modal-btn btn-cancel" onclick="resolveConfirm(false)">CANCEL</button>
+                <button class="modal-btn btn-confirm" onclick="resolveConfirm(true)">CONFIRM</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="settings-modal" class="modal-overlay" onclick="closeSettings()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <div class="modal-text" style="color:var(--gold); font-size: 1.5rem;">Settings</div>
+            
+            <div class="setting-row">
+                <div style="text-align:left;">
+                    <div style="font-weight:bold;">Audio</div>
+                    <small style="color:#666;">Sound effects</small>
+                </div>
+                <button id="sound-btn" class="toggle-btn" onclick="toggleSound()">OFF</button>
+            </div>
+
+            <div class="setting-row">
+                <div style="text-align:left;">
+                    <div style="font-weight:bold;">Haptics</div>
+                    <small style="color:#666;">Vibrate on tap</small>
+                </div>
+                <button id="haptic-btn" class="toggle-btn" onclick="toggleHaptics()">OFF</button>
+            </div>
+
+            <div class="setting-row">
+                <div style="text-align:left;">
+                    <div style="font-weight:bold;">Keep Screen On</div>
+                    <small style="color:#666;">Prevents phone sleeping</small>
+                </div>
+                <button id="wakelock-btn" class="toggle-btn" onclick="toggleWakeLock()">OFF</button>
+            </div>
+            
+            <button class="menu-btn secondary" onclick="closeSettings()" style="margin-top:20px;">CLOSE</button>
+        </div>
+    </div>
+
+    <div id="rules-modal" class="modal-overlay" onclick="closeRules()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <div class="modal-text" style="color:var(--gold); font-size: 1.5rem;">Rules & Odds</div>
+            <p style="color:#aaa; font-size:0.9rem; margin-bottom:20px;">Goal: Reach 200 points. <br><span style="color:var(--gold)">Highest number = Most common!</span></p>
+            <div style="background:rgba(255,255,255,0.1); padding:10px; border-radius:10px; margin-bottom:20px;">
+                <div style="font-weight:bold; color:var(--gold); margin-bottom:5px;">NUMBER CARDS</div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:5px; font-size:0.8rem; text-align:left;">
+                    <div>Value <b>12</b>: 12 cards</div>
+                    <div>Value <b>11</b>: 11 cards</div>
+                    <div>Value <b>10</b>: 10 cards</div>
+                    <div>Value <b>9</b>: 9 cards</div>
+                    <div>Value <b>8</b>: 8 cards</div>
+                    <div>Value <b>7</b>: 7 cards</div>
+                    <div>Value <b>6</b>: 6 cards</div>
+                    <div>Value <b>5</b>: 5 cards</div>
+                    <div>Value <b>4</b>: 4 cards</div>
+                    <div>Value <b>3</b>: 3 cards</div>
+                    <div>Value <b>2</b>: 2 cards</div>
+                    <div style="color:var(--gold)">Value <b>1</b>: 1 card</div>
+                </div>
+            </div>
+            <div class="rules-grid">
+                <div class="rule-card"><b>Special Cards</b>Freeze, Flip 3, Second Chance (3 of each in deck).</div>
+                <div class="rule-card"><b>Modifiers</b>+2, +4, +6, +8, +10 (1 of each).<br>x2 Multiplier (1 total).</div>
+                <div class="rule-card"><b>Scoring Order</b>1. Sum Numbers<br>2. Multiply (x2)<br>3. Add Bonus Cards<br>4. Flip 7 Bonus (+15)</div>
+                <div class="rule-card"><b>Flip 7</b>If you get 7 unique numbers, round ends immediately. +15 Pts.</div>
+            </div>
+            <button class="menu-btn secondary" onclick="closeRules()" style="margin-top:20px;">CLOSE</button>
+        </div>
+    </div>
+
+    <div id="winner-modal" class="modal-overlay">
+        <div class="modal-box" style="max-width: 400px; border-color: var(--gold);">
+            <div style="font-size:4rem; margin-bottom: 10px;">👑</div>
+            <div id="winner-display-name" style="font-size: 2rem; color: var(--gold); font-weight: 900;">---</div>
+            <p id="winner-score-display" style="color:#aaa; margin-bottom: 30px;">Winner!</p>
+            <button class="menu-btn primary" onclick="startNewMatch()">RESET SCORES & REPLAY</button>
+            <button class="menu-btn warn" onclick="undoWin()">UNDO</button>
+            <button onclick="closeWinnerModal()" style="background:transparent; color:#888; width:100%; padding:15px; border:none; margin-top:5px; cursor:pointer;">RETURN TO MENU</button>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <div id="view-title" class="title-screen glass-panel">
+        <div class="hero-logo">🎴</div>
+        <h1 style="font-size: 1.8rem; margin-bottom: 5px;">FLIPMASTER 7</h1>
+        <p style="color: var(--subtext); font-size: 0.8rem; margin-bottom: 30px; letter-spacing: 2px;">SCORER</p>
+        <button class="menu-btn primary" id="btn-start" onclick="startNewMatch()">Start New Match</button>
+        <button class="menu-btn" id="continue-btn" onclick="switchTab('game')" style="display:none;">Continue Match</button>
+        <div style="display:flex; gap:10px; width:100%;">
+            <button class="menu-btn secondary" onclick="switchTab('stats')" style="flex:1;">History</button>
+            <button class="menu-btn secondary" onclick="openRules()" style="flex:1;">📖 Rules</button>
+        </div>
+        <button class="menu-btn secondary" onclick="openSettings()" style="width:100%; margin-top:0;">⚙️ Settings</button>
+        <button id="install-btn" class="menu-btn install" onclick="installApp()">⬇️ Install App</button>
+        <button class="menu-btn danger" onclick="clearRoster()">Clear Roster</button>
+    </div>
+
+    <div id="app-main" class="hidden" style="width: 100%; max-width: 480px;">
+        <div class="header-row">
+            <h1>Scorer</h1>
+            <button class="reset-action-btn" onclick="backToTitle()">MENU</button>
+        </div>
+        <div class="tab-container">
+            <button class="tab-btn active" id="tab-game-btn" onclick="switchTab('game')">SCORES</button>
+            <button class="tab-btn" id="tab-calc-btn" onclick="switchTab('calc')">CALC</button>
+            <button class="tab-btn" id="tab-stats-btn" onclick="switchTab('stats')">LOG</button>
+        </div>
+        
+        <div id="view-game" class="glass-panel">
+            <div id="players"></div>
+            <div style="display:flex; gap:10px; margin-top:20px;">
+                <input type="text" id="pname" placeholder="Name..." style="flex:1;" onkeydown="if(event.key === 'Enter') addP()">
+                <button onclick="addP()" style="background:var(--gold); color:#000; border:none; padding:0 20px; border-radius:12px; font-weight:bold; font-size:1.5rem;">+</button>
+            </div>
+            <button class="submit-btn" onclick="calc()">SUBMIT ROUND</button>
+        </div>
+
+        <div id="view-calc" class="glass-panel hidden">
+            <div style="text-align:center; font-size: 3.5rem; font-weight: 900; margin-bottom:10px; display:flex; align-items:center; justify-content:center; gap:10px;">
+                <span id="calc-res" style="color:var(--gold)">0</span>
+                <span id="calc-bonus-res" style="font-size:1.5rem; color:var(--bonus-green); display:none;">+0</span>
+            </div>
+            <div id="token-grid" class="token-grid"></div>
+            <div style="text-align:center; margin-top:20px; margin-bottom:5px; color:#aaa; font-size:0.8rem; font-weight:bold;">BONUS CARDS (Not X2)</div>
+            <div id="bonus-grid" class="bonus-row"></div>
+            <div style="display:flex; gap:10px; margin-top:15px;">
+                 <button onclick="cClear()" style="flex:1; background:rgba(255,255,255,0.05); color:#fff; border:1px solid rgba(255,255,255,0.1); padding:15px; border-radius:15px; font-weight:bold;">CLR</button>
+            </div>
+            <div id="send-player-list" style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:20px;"></div>
+        </div>
+
+        <div id="view-stats" class="glass-panel hidden">
+            <button onclick="backToTitle()" style="width:100%; background:rgba(255,255,255,0.05); color:#fff; border:none; padding:10px; border-radius:10px; margin-bottom:15px; font-size:0.7rem;">← BACK</button>
+            <div id="stats-content"></div>
+        </div>
+    </div>
+
+    <script>
+        // Data Init
+        let data = JSON.parse(localStorage.getItem('unkie_f7_local')) || {p:[], m:[], round:1, keepAwake: false, sound: true, haptics: true, dealerIdx: 0};
+        if(typeof data.dealerIdx === 'undefined') data.dealerIdx = 0;
+        if(typeof data.sound === 'undefined') data.sound = true;
+        if(typeof data.haptics === 'undefined') data.haptics = true;
+        data.p.forEach(p => { if(typeof p.bonusVal === 'undefined') p.bonusVal = 0; });
+
+        let currentTotal = 0;
+        let currentBonus = 0;
+        let confirmCallback = null;
+        let wakeLockSentinel = null;
+        let backupState = null;
+        let deferredPrompt = null;
+        
+        // Sound Context
+        let audioCtx = null;
+
+        const save = () => localStorage.setItem('unkie_f7_local', JSON.stringify(data));
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.innerText = msg; t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2000);
+        }
+
+        /* --- SOUND ENGINE --- */
+        function initAudio() {
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+        }
+
+        function playSound(type) {
+            if (!data.sound) return;
+            initAudio();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            const now = audioCtx.currentTime;
+            
+            if (type === 'click') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(800, now);
+                osc.frequency.exponentialRampToValueAtTime(300, now + 0.1);
+                gain.gain.setValueAtTime(0.1, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+                osc.start(now); osc.stop(now + 0.1);
+            } 
+            else if (type === 'bust') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(150, now);
+                osc.frequency.linearRampToValueAtTime(50, now + 0.4);
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.4);
+                osc.start(now); osc.stop(now + 0.4);
+            }
+            else if (type === 'win') {
+                // Arpeggio
+                [440, 554, 659, 880].forEach((freq, i) => {
+                    const o = audioCtx.createOscillator();
+                    const g = audioCtx.createGain();
+                    o.connect(g); g.connect(audioCtx.destination);
+                    o.type = 'triangle';
+                    o.frequency.value = freq;
+                    g.gain.setValueAtTime(0.1, now + i*0.1);
+                    g.gain.exponentialRampToValueAtTime(0.01, now + i*0.1 + 0.3);
+                    o.start(now + i*0.1); o.stop(now + i*0.1 + 0.3);
+                });
+            }
+        }
+
+        function toggleSound() {
+            data.sound = !data.sound;
+            save(); renderSettingsUI();
+            if(data.sound) playSound('click');
+        }
+
+        /* --- HAPTICS ENGINE --- */
+        function triggerHaptic(type) {
+            if (!data.haptics || !navigator.vibrate) return;
+            // Short tap for clicks, longer for actions
+            const duration = (type === 'heavy') ? 40 : 8; 
+            navigator.vibrate(duration);
+        }
+
+        function toggleHaptics() {
+            data.haptics = !data.haptics;
+            save(); renderSettingsUI();
+            if(data.haptics) triggerHaptic('heavy');
+        }
+
+        /* --- CONFETTI ENGINE --- */
+        let confettiActive = false;
+        function startConfetti() {
+            const canvas = document.getElementById('confetti-canvas');
+            canvas.style.display = 'block';
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            const ctx = canvas.getContext('2d');
+            const particles = [];
+            const colors = ['#ffcc00', '#ff2a2a', '#00e676', '#2979ff', '#d500f9'];
+
+            for(let i=0; i<100; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width, y: Math.random() * -canvas.height,
+                    vx: Math.random() * 4 - 2, vy: Math.random() * 5 + 2,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    size: Math.random() * 8 + 4
+                });
+            }
+
+            confettiActive = true;
+            function loop() {
+                if(!confettiActive) { ctx.clearRect(0,0,canvas.width,canvas.height); return; }
+                ctx.clearRect(0,0,canvas.width,canvas.height);
+                particles.forEach(p => {
+                    p.x += p.vx; p.y += p.vy;
+                    if(p.y > canvas.height) p.y = -10;
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(p.x, p.y, p.size, p.size);
+                });
+                requestAnimationFrame(loop);
+            }
+            loop();
+        }
+
+        function stopConfetti() {
+            confettiActive = false;
+            document.getElementById('confetti-canvas').style.display = 'none';
+        }
+
+        /* --- PWA INSTALL --- */
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            const btn = document.getElementById('install-btn');
+            if(btn) btn.style.display = 'block';
+        });
+
+        async function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    document.getElementById('install-btn').style.display = 'none';
+                }
+                deferredPrompt = null;
+            }
+        }
+
+        /* --- WAKE LOCK --- */
+        async function applyWakeLock() {
+            if (!('wakeLock' in navigator)) return;
+            try {
+                if(data.keepAwake && document.visibilityState === 'visible') {
+                    wakeLockSentinel = await navigator.wakeLock.request('screen');
+                }
+            } catch (err) { console.log(err); }
+        }
+
+        async function toggleWakeLock() {
+            if (!('wakeLock' in navigator)) {
+                showToast("Not supported");
+                return;
+            }
+            data.keepAwake = !data.keepAwake;
+            save();
+            renderSettingsUI();
+            if (data.keepAwake) {
+                await applyWakeLock();
+                showToast("Screen Lock: ON");
+            } else {
+                if (wakeLockSentinel) {
+                    await wakeLockSentinel.release();
+                    wakeLockSentinel = null;
+                }
+                showToast("Screen Lock: OFF");
+            }
+        }
+
+        document.addEventListener('visibilitychange', async () => {
+            if (wakeLockSentinel !== null && document.visibilityState === 'visible') {
+                await applyWakeLock();
+            }
+        });
+
+        /* --- UI LOGIC --- */
+        function openSettings() {
+            renderSettingsUI();
+            document.getElementById('settings-modal').classList.add('show');
+        }
+        function closeSettings() {
+            document.getElementById('settings-modal').classList.remove('show');
+        }
+        function renderSettingsUI() {
+            const wakeBtn = document.getElementById('wakelock-btn');
+            if (data.keepAwake) { wakeBtn.classList.add('active'); wakeBtn.innerText = "ON"; } 
+            else { wakeBtn.classList.remove('active'); wakeBtn.innerText = "OFF"; }
+
+            const soundBtn = document.getElementById('sound-btn');
+            if (data.sound) { soundBtn.classList.add('active'); soundBtn.innerText = "ON"; }
+            else { soundBtn.classList.remove('active'); soundBtn.innerText = "OFF"; }
+
+            const hapticBtn = document.getElementById('haptic-btn');
+            if (data.haptics) { hapticBtn.classList.add('active'); hapticBtn.innerText = "ON"; }
+            else { hapticBtn.classList.remove('active'); hapticBtn.innerText = "OFF"; }
+        }
+        
+        function openRules() { document.getElementById('rules-modal').classList.add('show'); }
+        function closeRules() { document.getElementById('rules-modal').classList.remove('show'); }
+
+        function openConfirm(message, callback) {
+            document.getElementById('confirm-message').textContent = message;
+            document.getElementById('confirm-modal').classList.add('show');
+            confirmCallback = callback;
+        }
+        function resolveConfirm(result) {
+            document.getElementById('confirm-modal').classList.remove('show');
+            if (confirmCallback) {
+                const cb = confirmCallback; confirmCallback = null; cb(result);
+            }
+        }
+
+        function setDealer(i) {
+            triggerHaptic();
+            if (data.dealerIdx === i) {
+                data.dealerIdx++;
+                if (data.dealerIdx >= data.p.length) data.dealerIdx = 0;
+            } else {
+                data.dealerIdx = i;
+            }
+            save();
+            render();
+        }
+
+        /* --- GAME LOGIC --- */
+        function startNewMatch() {
+            triggerHaptic('heavy');
+            document.getElementById('winner-modal').classList.remove('show');
+            const hasScores = data.p.some(p => p.s > 0);
+            const doStart = () => {
+                data.p.forEach(p => { 
+                    p.s = 0; p.bCount = 0; p.x2 = false; p.f7 = false; 
+                    p.busted = false; p.curVal = ""; p.bonusVal = 0; p.prevData = null; 
+                });
+                data.round = 1; save(); switchTab('game');
+            };
+            if(hasScores) { openConfirm("Reset all scores to 0?", (yes) => { if(yes) doStart(); }); } else { doStart(); }
+        }
+
+        function clearRoster() {
+            triggerHaptic('heavy');
+            openConfirm("Delete ALL players?", (yes) => {
+                if(yes) {
+                    data.p = []; data.dealerIdx = 0; save(); render();
+                    showToast("Roster Cleared"); checkContinueStatus();
+                }
+            });
+        }
+
+        function backToTitle() {
+            syncInputs();
+            document.getElementById('app-main').classList.add('hidden');
+            document.getElementById('view-title').classList.remove('hidden');
+            checkContinueStatus();
+        }
+
+        function checkContinueStatus() {
+            const hasPlayers = data.p.length > 0;
+            document.getElementById('continue-btn').style.display = hasPlayers ? 'block' : 'none';
+            document.getElementById('btn-start').innerText = hasPlayers ? 'Reset Scores' : 'Start New Match';
+        }
+
+        function switchTab(tab) {
+            triggerHaptic();
+            if(!document.getElementById('view-game').classList.contains('hidden')) syncInputs();
+            document.getElementById('view-title').classList.add('hidden');
+            document.getElementById('app-main').classList.remove('hidden');
+            document.querySelectorAll('.glass-panel').forEach(c => { 
+                if(c.id !== 'view-title' && c.id !== 'app-main') c.classList.add('hidden'); 
+            });
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(`view-${tab}`).classList.remove('hidden');
+            document.getElementById(`tab-${tab}-btn`).classList.add('active');
+            if(tab === 'calc') renderCalc();
+            if(tab === 'stats') renderStats();
+            if(tab === 'game') render(); 
+        }
+
+        function cAdd(v) { playSound('click'); triggerHaptic(); currentTotal += v; updateCalcDisplay(); }
+        function cAddBonus(v) { playSound('click'); triggerHaptic(); currentBonus += v; updateCalcDisplay(); }
+        function cClear() { triggerHaptic(); currentTotal = 0; currentBonus = 0; updateCalcDisplay(); }
+        
+        function updateCalcDisplay() { 
+            document.getElementById('calc-res').innerText = currentTotal; 
+            const b = document.getElementById('calc-bonus-res');
+            if(currentBonus > 0) {
+                b.style.display = "block";
+                b.innerText = `+${currentBonus}`;
+            } else {
+                b.style.display = "none";
+            }
+        }
+
+        function sendToSpecific(i) {
+            triggerHaptic('heavy');
+            data.p[i].curVal = currentTotal.toString();
+            data.p[i].bonusVal = currentBonus;
+            cClear(); save();
+            document.getElementById('view-calc').classList.add('hidden');
+            document.getElementById('view-game').classList.remove('hidden');
+            document.getElementById('tab-calc-btn').classList.remove('active');
+            document.getElementById('tab-game-btn').classList.add('active');
+            render();
+        }
+
+        // --- CSS CARD GENERATOR (NEON) ---
+        function getCardHTML(val, isBonus) {
+            const colors = {
+                12: '#ff2a2a', 11: '#ff9100', 10: '#ffd600', 9: '#00e676', 8: '#2979ff',
+                7: '#d500f9', 6: '#f50057', 5: '#00bfa5', 4: '#8d6e63', 3: '#78909c',
+                2: '#bdbdbd', 1: '#ffffff'
+            };
+            
+            let color = isBonus ? 'var(--bonus-green)' : (colors[val] || '#444');
+            let displayVal = isBonus ? `+${val}` : val;
+            let cardClass = isBonus ? 'bonus' : 'number';
+
+            return `
+            <div class="slick-card ${cardClass}" style="--c-bg: ${color};" onclick="${isBonus ? `cAddBonus(${val})` : `cAdd(${val})`}">
+                <div class="card-corner">${displayVal}</div>
+                <div class="card-center">${displayVal}</div>
+                <div class="card-corner btm">${displayVal}</div>
+            </div>`;
+        }
+
+        function renderCalc() {
+            const vals = [12,11,10,9,8,7,6,5,4,3,2,1];
+            document.getElementById('token-grid').innerHTML = vals.map(v => getCardHTML(v, false)).join('');
+            
+            const bonuses = [2,4,6,8,10];
+            document.getElementById('bonus-grid').innerHTML = bonuses.map(v => getCardHTML(v, true)).join('');
+            
+            document.getElementById('send-player-list').innerHTML = data.p.map((p, i) => 
+                `<button class="menu-btn" style="padding:15px; border-color:var(--gold); color:var(--gold); margin:0;" onclick="sendToSpecific(${i})">${p.name}</button>`
+            ).join('');
+            cClear(); 
+        }
+
+        function syncInputs() {
+            data.p.forEach((p, i) => {
+                const el = document.getElementById(`i${i}`);
+                if (el) p.curVal = el.value;
+            });
+            save();
+        }
+
+        function saveInput(i, val) {
+            data.p[i].curVal = val;
+            save();
+        }
+
+        function clearBonus(i) {
+            triggerHaptic();
+            data.p[i].bonusVal = 0;
+            save();
+            render();
+        }
+
+        function addP() {
+            triggerHaptic();
+            syncInputs();
+            const n = document.getElementById('pname');
+            const name = n.value.trim();
+            if(name) { 
+                data.p.push({name: name, s: 0, bCount: 0, x2: false, f7: false, busted: false, curVal: "", bonusVal: 0}); 
+                n.value = ""; 
+                save(); 
+                render(); 
+            }
+        }
+
+        function triggerRemoveP(i) {
+            triggerHaptic('heavy');
+            syncInputs();
+            openConfirm(`Remove ${data.p[i].name}?`, (yes) => {
+                if(yes) {
+                    data.p.splice(i, 1);
+                    if(i < data.dealerIdx) data.dealerIdx--;
+                    if(data.dealerIdx >= data.p.length) data.dealerIdx = 0;
+                    save();
+                    render();
+                }
+            });
+        }
+
+        function toggleOpt(i, opt) { 
+            triggerHaptic();
+            syncInputs(); data.p[i][opt] = !data.p[i][opt]; save(); render(); 
+        }
+
+        function bustPlayer(i) {
+            syncInputs();
+            const p = data.p[i];
+            if(!p.busted) {
+                playSound('bust');
+                triggerHaptic('heavy');
+                p.prevData = { val: p.curVal, bonus: p.bonusVal, x2: p.x2, f7: p.f7 };
+                p.busted = true; p.bCount++; p.x2 = false; p.f7 = false; p.curVal = ""; p.bonusVal = 0;
+            } else {
+                triggerHaptic();
+                p.busted = false; p.bCount--;
+                if(p.prevData) {
+                    p.curVal = p.prevData.val; p.bonusVal = p.prevData.bonus || 0; 
+                    p.x2 = p.prevData.x2; p.f7 = p.prevData.f7;
+                }
+            }
+            save(); render();
+        }
+
+        function calc() {
+            triggerHaptic('heavy');
+            syncInputs();
+            backupState = JSON.parse(JSON.stringify(data));
+            let winner = null, roundActivity = false;
+            data.p.forEach((p) => {
+                if(p.busted) { p.busted = false; roundActivity = true; return; }
+                let base = parseInt(p.curVal) || 0;
+                let bonus = p.bonusVal || 0;
+                if(p.curVal !== "" || bonus > 0 || p.f7) {
+                    let score = p.x2 ? base * 2 : base;
+                    score += bonus;
+                    if(p.f7) score += 15;
+                    p.s += score;
+                    roundActivity = true;
+                }
+                if(p.s >= 200 && (!winner || p.s > winner.s)) winner = p;
+                p.x2 = false; p.f7 = false; p.curVal = ""; p.bonusVal = 0; p.prevData = null;
+            });
+            if(roundActivity) {
+                data.round++; 
+                if (data.p.length > 0) { data.dealerIdx++; if (data.dealerIdx >= data.p.length) data.dealerIdx = 0; }
+                save(); render();
+                if(winner) showWinner(winner); else showToast("Round " + data.round);
+            } else { showToast("No scores entered"); }
+        }
+
+        function showWinner(w) {
+            playSound('win');
+            startConfetti();
+            data.m.unshift({name: w.name, score: w.s, date: new Date().toLocaleDateString()});
+            if(data.m.length > 10) data.m.pop();
+            save();
+            document.getElementById('winner-display-name').innerText = w.name;
+            document.getElementById('winner-score-display').innerText = `${w.s} Pts!`;
+            document.getElementById('winner-modal').classList.add('show');
+        }
+
+        function closeWinnerModal() { 
+            stopConfetti();
+            document.getElementById('winner-modal').classList.remove('show');
+            setTimeout(() => backToTitle(), 300);
+        }
+
+        function undoWin() {
+            if(!backupState) { showToast("Cannot undo"); return; }
+            triggerHaptic('heavy');
+            data = JSON.parse(JSON.stringify(backupState));
+            save(); render();
+            stopConfetti();
+            document.getElementById('winner-modal').classList.remove('show');
+            showToast("Round Undone");
+        }
+
+        function renderStats() {
+            let html = `<div style="color:var(--gold); font-weight:900; margin-bottom:15px;">SESSION BUSTS</div>`;
+            html += data.p.map(p => `<div>${p.name}: <span style="color:var(--bust-red)">${p.bCount}</span></div>`).join('');
+            html += `<div style="color:var(--gold); font-weight:900; margin-top:30px;">MATCH HISTORY</div>`;
+            html += data.m.length ? data.m.map(m => `<div style="padding:5px; border-bottom:1px solid #333; display:flex; justify-content:space-between;"><span>${m.name}</span> <span style="color:var(--gold)">${m.score}</span></div>`).join('') : '<div style="color:#666">No matches recorded</div>';
+            document.getElementById('stats-content').innerHTML = html;
+        }
+
+        function render() {
+            const max = Math.max(...data.p.map(p => p.s), 0);
+            document.getElementById('players').innerHTML = data.p.map((p, i) => `
+                <div class="${p.busted ? 'is-busted-wrapper' : ''}" style="margin-bottom:15px;">
+                    <div class="player-row ${max > 0 && p.s === max ? 'leader' : ''}">
+                        <div class="p-header">
+                            <div class="p-info">
+                                <div class="dealer-marker ${i === data.dealerIdx ? 'active' : ''}" onclick="setDealer(${i})">D</div>
+                                <div>
+                                    <small style="color:#888; text-transform:uppercase; font-size:0.7rem; font-weight:bold;">${p.name}</small>
+                                    <div class="score">${p.s}</div>
+                                </div>
+                            </div>
+                            <div style="display:flex; gap:10px; align-items:center;">
+                                <button class="bust-btn ${p.busted ? 'undo-bust' : ''}" onclick="bustPlayer(${i})">${p.busted ? 'UN-BUST' : 'BUST'}</button>
+                                <div style="display:flex; align-items:center;">
+                                    <input type="number" inputmode="numeric" pattern="[0-9]*" id="i${i}" placeholder="0" value="${p.curVal}" oninput="saveInput(${i}, this.value)">
+                                    ${p.bonusVal > 0 ? `<div class="bonus-badge" onclick="clearBonus(${i})">+${p.bonusVal}</div>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="action-group">
+                            <button class="opt-btn ${p.x2 ? 'active-x2' : ''}" onclick="toggleOpt(${i}, 'x2')">X2</button>
+                            <button class="opt-btn ${p.f7 ? 'active-f7' : ''}" onclick="toggleOpt(${i}, 'f7')">Flip 7</button>
+                            <button class="opt-btn delete-btn" onclick="triggerRemoveP(${i})">🗑️</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        if(data.keepAwake) applyWakeLock();
+        checkContinueStatus();
+    </script>
 </body>
 </html>
