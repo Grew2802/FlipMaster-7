@@ -1,4 +1,4 @@
-const CACHE_NAME = 'flipmaster7-v1';
+const CACHE_NAME = 'flipmaster7-v5';
 const ASSETS = [
   './',
   './index.html'
