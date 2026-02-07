@@ -96,8 +96,8 @@
     }
 
     :root {
-      /* Extreme fail-safe minimums: 80px for top notch area, 20px for bottom indicator */
-      --safe-top: max(80px, env(safe-area-inset-top, 0px));
+      /* Production safe zone: 60px top minimum to clear all iPhone notches */
+      --safe-top: max(60px, env(safe-area-inset-top, 0px));
       --safe-bottom: max(20px, env(safe-area-inset-bottom, 0px));
     }
 

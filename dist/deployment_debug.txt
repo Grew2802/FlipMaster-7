@@ -1,2 +1,0 @@
-DEPLOYMENT DEBUG - V10.1 - Pushed at 2026-02-08 10:24
-If you can see this, GitHub is syncing root files.
