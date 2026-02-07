@@ -221,7 +221,10 @@ const App = () => {
       <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center space-y-6 relative bg-bg transition-colors duration-300">
         <button
           onClick={toggleTheme}
-          className="fixed safe-top right-6 w-12 h-12 rounded-full bg-card-bg border border-white/10 flex items-center justify-center text-xl shadow-lg z-50 hover:bg-white/10 transition-colors"
+          className="fixed top-0 right-6 w-12 h-12 rounded-full bg-card-bg border border-white/10 flex items-center justify-center text-xl shadow-lg z-50 hover:bg-white/10 transition-colors"
+          style={{
+            marginTop: 'calc(1.5rem + env(safe-area-inset-top, 20px))'
+          }}
         >
           {theme === 'dark' ? '☀️' : '🌙'}
         </button>
@@ -434,7 +437,12 @@ const App = () => {
         </div>
       </div>
 
-      <div className="fixed safe-bottom left-0 right-0 p-4 bg-gradient-to-t from-bg via-bg to-transparent pointer-events-none">
+      <div
+        className="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-bg via-bg to-transparent pointer-events-none"
+        style={{
+          paddingBottom: 'calc(1rem + env(safe-area-inset-bottom, 20px))'
+        }}
+      >
         <div className="max-w-lg mx-auto pointer-events-auto">
           <button onClick={submitRound} className="w-full bg-primary text-white dark:text-black font-black text-lg py-5 rounded-2xl shadow-2xl shadow-primary/20 active:scale-95 transition-all hover:brightness-110 uppercase tracking-widest">
             Finish Round
