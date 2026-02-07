@@ -15,7 +15,7 @@ export interface Player {
   // Temporary state for the current round input
   currentInput: string;
   isFlip7: boolean;
-  isX2: boolean; 
+  isX2: boolean;
   isDiv2: boolean;
   isZeroRule?: boolean; // Tracks if the Vengeance Zero rule triggered
   bonusTotal: number;
@@ -28,6 +28,8 @@ export interface GameState {
   gameMode: GameMode;
   theme: 'light' | 'dark';
   sound: boolean;
+  brutalMode: boolean;
+  targetGoal: number;
   history: MatchRecord[];
 }
 

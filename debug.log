@@ -1,0 +1,415 @@
+
+> flipmaster-7-vengeance@1.0.0 dev
+> vite
+
+
+  VITE v5.4.21  ready in 135 ms
+
+  ➜  Local:   http://localhost:5173/Fliptest2/
+  ➜  Network: use --host to expose
+  ➜  press h + enter to show help
+Files in the public directory are served at the root path.
+Instead of /public/sw.js, use /sw.js.
+Files in the public directory are served at the root path.
+Instead of /public/manifest.json, use /manifest.json.
+Files in the public directory are served at the root path.
+Instead of /public/icon-192.png, use /icon-192.png.
+Files in the public directory are served at the root path.
+Instead of /public/, use /.
+Files in the public directory are served at the root path.
+Instead of /public/index.html, use /index.html.
+Files in the public directory are served at the root path.
+Instead of /public/manifest.json, use /manifest.json.
+Files in the public directory are served at the root path.
+Instead of /public/manifest.json, use /manifest.json.
+Files in the public directory are served at the root path.
+Instead of /public/icon-192.png, use /icon-192.png.
+Files in the public directory are served at the root path.
+Instead of /public/manifest.json, use /manifest.json.
+Files in the public directory are served at the root path.
+Instead of /public/icon-192.png, use /icon-192.png.
+Files in the public directory are served at the root path.
+Instead of /public/sw.js, use /sw.js.
+Files in the public directory are served at the root path.
+Instead of /public/, use /.
+Files in the public directory are served at the root path.
+Instead of /public/index.html, use /index.html.
+Files in the public directory are served at the root path.
+Instead of /public/manifest.json, use /manifest.json.
+10:41:14 pm [vite] hmr update /src/components/Card.tsx
+10:41:16 pm [vite] hmr update /src/components/Calculator.tsx
+Files in the public directory are served at the root path.
+Instead of /public/manifest.json, use /manifest.json.
+Files in the public directory are served at the root path.
+Instead of /public/icon-192.png, use /icon-192.png.
+Files in the public directory are served at the root path.
+Instead of /public/manifest.json, use /manifest.json.
+Files in the public directory are served at the root path.
+Instead of /public/icon-192.png, use /icon-192.png.
+Files in the public directory are served at the root path.
+Instead of /public/manifest.json, use /manifest.json.
+Files in the public directory are served at the root path.
+Instead of /public/icon-192.png, use /icon-192.png.
+10:43:19 pm [vite] hmr update /src/components/Card.tsx
+10:43:36 pm [vite] hmr update /src/components/Card.tsx
+10:44:15 pm [vite] hmr update /src/components/Card.tsx
+10:44:38 pm [vite] hmr update /src/components/Card.tsx
+Files in the public directory are served at the root path.
+Instead of /public/manifest.json, use /manifest.json.
+Files in the public directory are served at the root path.
+Instead of /public/icon-192.png, use /icon-192.png.
+10:46:02 pm [vite] hmr update /src/components/Card.tsx
+Files in the public directory are served at the root path.
+Instead of /public/manifest.json, use /manifest.json.
+Files in the public directory are served at the root path.
+Instead of /public/icon-192.png, use /icon-192.png.
+Files in the public directory are served at the root path.
+Instead of /public/manifest.json, use /manifest.json.
+Files in the public directory are served at the root path.
+Instead of /public/icon-192.png, use /icon-192.png.
+Files in the public directory are served at the root path.
+Instead of /public/manifest.json, use /manifest.json.
+Files in the public directory are served at the root path.
+Instead of /public/icon-192.png, use /icon-192.png.
+Files in the public directory are served at the root path.
+Instead of /public/manifest.json, use /manifest.json.
+Files in the public directory are served at the root path.
+Instead of /public/icon-192.png, use /icon-192.png.
+Files in the public directory are served at the root path.
+Instead of /public/manifest.json, use /manifest.json.
+Files in the public directory are served at the root path.
+Instead of /public/icon-192.png, use /icon-192.png.
+Files in the public directory are served at the root path.
+Instead of /public/manifest.json, use /manifest.json.
+Files in the public directory are served at the root path.
+Instead of /public/icon-192.png, use /icon-192.png.
+Files in the public directory are served at the root path.
+Instead of /public/manifest.json, use /manifest.json.
+Files in the public directory are served at the root path.
+Instead of /public/icon-192.png, use /icon-192.png.
+11:16:58 pm [vite] hmr update /src/components/Card.tsx
+Files in the public directory are served at the root path.
+Instead of /public/manifest.json, use /manifest.json.
+Files in the public directory are served at the root path.
+Instead of /public/icon-192.png, use /icon-192.png.
+11:21:23 pm [vite] hmr update /src/components/Card.tsx
+Files in the public directory are served at the root path.
+Instead of /public/manifest.json, use /manifest.json.
+Files in the public directory are served at the root path.
+Instead of /public/icon-192.png, use /icon-192.png.
+11:25:46 pm [vite] hmr update /src/components/Card.tsx
+Files in the public directory are served at the root path.
+Instead of /public/manifest.json, use /manifest.json.
+Files in the public directory are served at the root path.
+Instead of /public/icon-192.png, use /icon-192.png.
+Files in the public directory are served at the root path.
+Instead of /public/manifest.json, use /manifest.json.
+Files in the public directory are served at the root path.
+Instead of /public/icon-192.png, use /icon-192.png.
+11:28:46 pm [vite] hmr update /src/components/Card.tsx
+11:28:46 pm [vite] Internal server error: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/src/components/Card.tsx: Unexpected token (5:10)
+
+  3 |
+  4 | // SYNTAX ERROR HERE
+> 5 | const x = ;
+    |           ^
+  6 |
+  7 | interface CardProps {
+  8 |   value: number | string;
+  Plugin: vite:react-babel
+  File: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/src/components/Card.tsx:5:10
+  3  |  
+  4  |  // SYNTAX ERROR HERE
+  5  |  const x = ;
+     |            ^
+  6  |  
+  7  |  interface CardProps {
+      at constructor (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:365:19)
+      at TypeScriptParserMixin.raise (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:6599:19)
+      at TypeScriptParserMixin.unexpected (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:6619:16)
+      at TypeScriptParserMixin.parseExprAtom (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:11442:22)
+      at TypeScriptParserMixin.parseExprAtom (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:4764:20)
+      at TypeScriptParserMixin.parseExprSubscripts (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:11081:23)
+      at TypeScriptParserMixin.parseUpdate (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:11066:21)
+      at TypeScriptParserMixin.parseMaybeUnary (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:11046:23)
+      at TypeScriptParserMixin.parseMaybeUnary (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:9837:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:10899:61)
+      at TypeScriptParserMixin.parseExprOps (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:10904:23)
+      at TypeScriptParserMixin.parseMaybeConditional (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:10881:23)
+      at TypeScriptParserMixin.parseMaybeAssign (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:10831:21)
+      at TypeScriptParserMixin.parseMaybeAssign (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:9786:20)
+      at /home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:10800:39
+      at TypeScriptParserMixin.allowInAnd (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:12421:16)
+      at TypeScriptParserMixin.parseMaybeAssignAllowIn (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:10800:17)
+      at TypeScriptParserMixin.parseVar (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:13384:91)
+      at TypeScriptParserMixin.parseVarStatement (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:13230:10)
+      at TypeScriptParserMixin.parseVarStatement (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:9408:31)
+      at TypeScriptParserMixin.parseStatementContent (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:12851:23)
+      at TypeScriptParserMixin.parseStatementContent (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:9508:18)
+      at TypeScriptParserMixin.parseStatementLike (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:12767:17)
+      at TypeScriptParserMixin.parseModuleItem (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:12744:17)
+      at TypeScriptParserMixin.parseBlockOrModuleBlockBody (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:13316:36)
+      at TypeScriptParserMixin.parseBlockBody (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:13309:10)
+      at TypeScriptParserMixin.parseProgram (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:12622:10)
+      at TypeScriptParserMixin.parseTopLevel (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:12612:25)
+      at TypeScriptParserMixin.parse (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:14488:25)
+      at TypeScriptParserMixin.parse (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:10126:18)
+      at parse (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:14522:38)
+      at parser (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/core/lib/parser/index.js:41:34)
+      at parser.next (<anonymous>)
+      at normalizeFile (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/core/lib/transformation/normalize-file.js:64:37)
+      at normalizeFile.next (<anonymous>)
+      at run (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/core/lib/transformation/index.js:22:50)
+      at run.next (<anonymous>)
+      at transform (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/core/lib/transform.js:22:33)
+      at transform.next (<anonymous>)
+      at step (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/gensync/index.js:261:32)
+      at /home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/gensync/index.js:273:13
+      at async.call.result.err.err (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/gensync/index.js:223:11)
+      at /home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/gensync/index.js:189:28
+      at /home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/core/lib/gensync-utils/async.js:67:7
+      at /home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/gensync/index.js:113:33
+      at step (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/gensync/index.js:287:14)
+      at /home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/gensync/index.js:273:13
+      at async.call.result.err.err (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/gensync/index.js:223:11)
+11:28:46 pm [vite] Internal server error: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/src/components/Card.tsx: Unexpected token (5:10)
+
+  3 |
+  4 | // SYNTAX ERROR HERE
+> 5 | const x = ;
+    |           ^
+  6 |
+  7 | interface CardProps {
+  8 |   value: number | string;
+  Plugin: vite:react-babel
+  File: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/src/components/Card.tsx:5:10
+  3  |  
+  4  |  // SYNTAX ERROR HERE
+  5  |  const x = ;
+     |            ^
+  6  |  
+  7  |  interface CardProps {
+      at constructor (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:365:19)
+      at TypeScriptParserMixin.raise (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:6599:19)
+      at TypeScriptParserMixin.unexpected (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:6619:16)
+      at TypeScriptParserMixin.parseExprAtom (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:11442:22)
+      at TypeScriptParserMixin.parseExprAtom (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:4764:20)
+      at TypeScriptParserMixin.parseExprSubscripts (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:11081:23)
+      at TypeScriptParserMixin.parseUpdate (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:11066:21)
+      at TypeScriptParserMixin.parseMaybeUnary (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:11046:23)
+      at TypeScriptParserMixin.parseMaybeUnary (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:9837:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:10899:61)
+      at TypeScriptParserMixin.parseExprOps (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:10904:23)
+      at TypeScriptParserMixin.parseMaybeConditional (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:10881:23)
+      at TypeScriptParserMixin.parseMaybeAssign (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:10831:21)
+      at TypeScriptParserMixin.parseMaybeAssign (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:9786:20)
+      at /home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:10800:39
+      at TypeScriptParserMixin.allowInAnd (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:12421:16)
+      at TypeScriptParserMixin.parseMaybeAssignAllowIn (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:10800:17)
+      at TypeScriptParserMixin.parseVar (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:13384:91)
+      at TypeScriptParserMixin.parseVarStatement (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:13230:10)
+      at TypeScriptParserMixin.parseVarStatement (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:9408:31)
+      at TypeScriptParserMixin.parseStatementContent (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:12851:23)
+      at TypeScriptParserMixin.parseStatementContent (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:9508:18)
+      at TypeScriptParserMixin.parseStatementLike (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:12767:17)
+      at TypeScriptParserMixin.parseModuleItem (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:12744:17)
+      at TypeScriptParserMixin.parseBlockOrModuleBlockBody (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:13316:36)
+      at TypeScriptParserMixin.parseBlockBody (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:13309:10)
+      at TypeScriptParserMixin.parseProgram (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:12622:10)
+      at TypeScriptParserMixin.parseTopLevel (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:12612:25)
+      at TypeScriptParserMixin.parse (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:14488:25)
+      at TypeScriptParserMixin.parse (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:10126:18)
+      at parse (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:14522:38)
+      at parser (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/core/lib/parser/index.js:41:34)
+      at parser.next (<anonymous>)
+      at normalizeFile (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/core/lib/transformation/normalize-file.js:64:37)
+      at normalizeFile.next (<anonymous>)
+      at run (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/core/lib/transformation/index.js:22:50)
+      at run.next (<anonymous>)
+      at transform (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/core/lib/transform.js:22:33)
+      at transform.next (<anonymous>)
+      at step (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/gensync/index.js:261:32)
+      at /home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/gensync/index.js:273:13
+      at async.call.result.err.err (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/gensync/index.js:223:11)
+      at /home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/gensync/index.js:189:28
+      at /home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/core/lib/gensync-utils/async.js:67:7
+      at /home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/gensync/index.js:113:33
+      at step (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/gensync/index.js:287:14)
+      at /home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/gensync/index.js:273:13
+      at async.call.result.err.err (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/gensync/index.js:223:11)
+11:28:46 pm [vite] Internal server error: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/src/components/Card.tsx: Unexpected token (5:10)
+
+  3 |
+  4 | // SYNTAX ERROR HERE
+> 5 | const x = ;
+    |           ^
+  6 |
+  7 | interface CardProps {
+  8 |   value: number | string;
+  Plugin: vite:react-babel
+  File: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/src/components/Card.tsx:5:10
+  3  |  
+  4  |  // SYNTAX ERROR HERE
+  5  |  const x = ;
+     |            ^
+  6  |  
+  7  |  interface CardProps {
+      at constructor (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:365:19)
+      at TypeScriptParserMixin.raise (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:6599:19)
+      at TypeScriptParserMixin.unexpected (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:6619:16)
+      at TypeScriptParserMixin.parseExprAtom (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:11442:22)
+      at TypeScriptParserMixin.parseExprAtom (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:4764:20)
+      at TypeScriptParserMixin.parseExprSubscripts (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:11081:23)
+      at TypeScriptParserMixin.parseUpdate (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:11066:21)
+      at TypeScriptParserMixin.parseMaybeUnary (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:11046:23)
+      at TypeScriptParserMixin.parseMaybeUnary (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:9837:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:10899:61)
+      at TypeScriptParserMixin.parseExprOps (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:10904:23)
+      at TypeScriptParserMixin.parseMaybeConditional (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:10881:23)
+      at TypeScriptParserMixin.parseMaybeAssign (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:10831:21)
+      at TypeScriptParserMixin.parseMaybeAssign (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:9786:20)
+      at /home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:10800:39
+      at TypeScriptParserMixin.allowInAnd (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:12421:16)
+      at TypeScriptParserMixin.parseMaybeAssignAllowIn (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:10800:17)
+      at TypeScriptParserMixin.parseVar (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:13384:91)
+      at TypeScriptParserMixin.parseVarStatement (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:13230:10)
+      at TypeScriptParserMixin.parseVarStatement (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:9408:31)
+      at TypeScriptParserMixin.parseStatementContent (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:12851:23)
+      at TypeScriptParserMixin.parseStatementContent (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:9508:18)
+      at TypeScriptParserMixin.parseStatementLike (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:12767:17)
+      at TypeScriptParserMixin.parseModuleItem (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:12744:17)
+      at TypeScriptParserMixin.parseBlockOrModuleBlockBody (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:13316:36)
+      at TypeScriptParserMixin.parseBlockBody (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:13309:10)
+      at TypeScriptParserMixin.parseProgram (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:12622:10)
+      at TypeScriptParserMixin.parseTopLevel (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:12612:25)
+      at TypeScriptParserMixin.parse (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:14488:25)
+      at TypeScriptParserMixin.parse (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:10126:18)
+      at parse (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/parser/lib/index.js:14522:38)
+      at parser (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/core/lib/parser/index.js:41:34)
+      at parser.next (<anonymous>)
+      at normalizeFile (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/core/lib/transformation/normalize-file.js:64:37)
+      at normalizeFile.next (<anonymous>)
+      at run (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/core/lib/transformation/index.js:22:50)
+      at run.next (<anonymous>)
+      at transform (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/core/lib/transform.js:22:33)
+      at transform.next (<anonymous>)
+      at step (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/gensync/index.js:261:32)
+      at /home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/gensync/index.js:273:13
+      at async.call.result.err.err (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/gensync/index.js:223:11)
+      at /home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/gensync/index.js:189:28
+      at /home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/@babel/core/lib/gensync-utils/async.js:67:7
+      at /home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/gensync/index.js:113:33
+      at step (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/gensync/index.js:287:14)
+      at /home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/gensync/index.js:273:13
+      at async.call.result.err.err (/home/shane/Documents/FlipMaster 7 testing/Fliptest2/node_modules/gensync/index.js:223:11)
+11:29:26 pm [vite] hmr update /src/components/Card.tsx
+Files in the public directory are served at the root path.
+Instead of /public/manifest.json, use /manifest.json.
+Files in the public directory are served at the root path.
+Instead of /public/icon-192.png, use /icon-192.png.
+Files in the public directory are served at the root path.
+Instead of /public/manifest.json, use /manifest.json.
+Files in the public directory are served at the root path.
+Instead of /public/icon-192.png, use /icon-192.png.
+11:32:47 pm [vite] hmr update /src/components/Card.tsx
+Files in the public directory are served at the root path.
+Instead of /public/manifest.json, use /manifest.json.
+Files in the public directory are served at the root path.
+Instead of /public/icon-192.png, use /icon-192.png.
+Files in the public directory are served at the root path.
+Instead of /public/manifest.json, use /manifest.json.
+Files in the public directory are served at the root path.
+Instead of /public/icon-192.png, use /icon-192.png.
+Files in the public directory are served at the root path.
+Instead of /public/manifest.json, use /manifest.json.
+Files in the public directory are served at the root path.
+Instead of /public/icon-192.png, use /icon-192.png.
+Files in the public directory are served at the root path.
+Instead of /public/sw.js, use /sw.js.
+Files in the public directory are served at the root path.
+Instead of /public/manifest.json, use /manifest.json.
+Files in the public directory are served at the root path.
+Instead of /public/, use /.
+Files in the public directory are served at the root path.
+Instead of /public/index.html, use /index.html.
+Files in the public directory are served at the root path.
+Instead of /public/manifest.json, use /manifest.json.
+Files in the public directory are served at the root path.
+Instead of /public/icon-192.png, use /icon-192.png.
+11:43:04 pm [vite] hmr update /components/Card.tsx
+Files in the public directory are served at the root path.
+Instead of /public/sw.js, use /sw.js.
+Files in the public directory are served at the root path.
+Instead of /public/, use /.
+Files in the public directory are served at the root path.
+Instead of /public/index.html, use /index.html.
+Files in the public directory are served at the root path.
+Instead of /public/manifest.json, use /manifest.json.
+Files in the public directory are served at the root path.
+Instead of /public/manifest.json, use /manifest.json.
+Files in the public directory are served at the root path.
+Instead of /public/icon-192.png, use /icon-192.png.
+Files in the public directory are served at the root path.
+Instead of /public/manifest.json, use /manifest.json.
+Files in the public directory are served at the root path.
+Instead of /public/icon-192.png, use /icon-192.png.
+11:48:28 pm [vite] page reload index.html
+11:48:31 pm [vite] hmr update /components/Card.tsx
+11:48:31 pm [vite] hmr update /components/SettingsModal.tsx
+11:48:31 pm [vite] hmr update /components/Calculator.tsx
+11:48:31 pm [vite] page reload utils/scoreCalculator.ts
+11:48:31 pm [vite] hmr update /App.tsx
+11:48:31 pm [vite] page reload index.tsx
+11:48:31 pm [vite] page reload constants.ts
+11:48:31 pm [vite] page reload types.ts
+11:48:31 pm [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+11:48:31 pm [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+11:48:31 pm [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+11:48:31 pm [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+11:48:31 pm [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+11:48:31 pm [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+11:48:45 pm [vite] hmr update /src/components/Card.tsx
+11:49:04 pm [vite] hmr update /src/components/Calculator.tsx
+11:51:03 pm [vite] page reload src/card-sprites.ts
+11:51:03 pm [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+11:51:03 pm [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+11:51:03 pm [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+11:51:03 pm [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+11:51:03 pm [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+11:51:03 pm [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+11:51:12 pm [vite] hmr update /src/App.tsx, /src/components/Calculator.tsx
+11:53:27 pm [vite] hmr update /src/App.tsx
+11:56:36 pm [vite] hmr update /src/components/SettingsModal.tsx
+11:56:40 pm [vite] hmr update /src/components/Calculator.tsx
+11:57:27 pm [vite] hmr update /src/App.tsx
+11:57:29 pm [vite] hmr update /src/components/Calculator.tsx
+11:58:12 pm [vite] hmr update /src/App.tsx
+12:04:03 am [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+12:04:03 am [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+12:13:15 am [vite] hmr update /src/App.tsx
+12:16:40 am [vite] hmr update /src/App.tsx, /src/components/Calculator.tsx
+12:16:45 am [vite] hmr update /src/App.tsx
+12:17:22 am [vite] hmr update /src/App.tsx
+12:17:31 am [vite] hmr update /src/components/SettingsModal.tsx
+12:21:55 am [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+12:21:55 am [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+12:22:18 am [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+12:23:45 am [vite] hmr update /src/App.tsx
+12:23:46 am [vite] hmr update /src/App.tsx
+12:23:51 am [vite] hmr update /src/App.tsx
+12:23:56 am [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+12:23:56 am [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+12:26:17 am [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+12:26:17 am [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+12:28:25 am [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+12:28:25 am [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+12:30:47 am [vite] hmr update /src/App.tsx
+12:30:57 am [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+12:30:57 am [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+12:33:57 am [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+12:33:57 am [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+12:35:06 am [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+12:35:06 am [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+12:35:36 am [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+12:35:36 am [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+12:35:36 am [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
