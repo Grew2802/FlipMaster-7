@@ -227,7 +227,7 @@ const App = () => {
       >
         <button
           onClick={toggleTheme}
-          className="absolute top-6 right-6 w-12 h-12 rounded-full bg-card-bg border border-white/10 flex items-center justify-center text-xl shadow-lg z-50 hover:bg-white/10 transition-colors"
+          className="absolute safe-top right-6 w-12 h-12 rounded-full bg-card-bg border border-white/10 flex items-center justify-center text-xl shadow-lg z-50 hover:bg-white/10 transition-colors"
 
         >
           {theme === 'dark' ? '☀️' : '🌙'}
