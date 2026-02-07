@@ -413,3 +413,6 @@ Instead of /public/icon-192.png, use /icon-192.png.
 12:35:36 am [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
 12:35:36 am [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
 12:35:36 am [vite] Pre-transform error: Failed to load url /index.tsx (resolved id: /home/shane/Documents/FlipMaster 7 testing/Fliptest2/index.tsx). Does the file exist?
+12:44:40 am [vite] page reload index.html
+12:44:42 am [vite] page reload index.html
+12:44:46 am [vite] page reload public/sw.js
