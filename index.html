@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MP7897KJYF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-MP7897KJYF');
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#40c4ff" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Flip 7" />
+  <link rel="apple-touch-icon" href="/icon-192.png" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="description" content="Score tracking companion for Flip 7 card game" />
+  <title>FlipMaster 7</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: 'var(--primary-color)',
+            bg: 'var(--bg)',
+            'card-bg': 'var(--card-bg)',
+            bust: 'var(--bust-red)',
+            bonus: 'var(--bonus-green)',
+            f7: 'var(--f7-purple)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --primary-color: #40c4ff;
+      --bg: #0a0a0c;
+      --card-bg: rgba(30, 30, 35, 0.95);
+      --text: #fff;
+      --subtext: #90caf9;
+      --bust-red: #ff5252;
+      --bonus-green: #69f0ae;
+      --f7-purple: #d500f9;
+    }
+
+    .light-mode {
+      --primary-color: #0277bd;
+      --bg: #f5f5f5;
+      --card-bg: rgba(255, 255, 255, 0.98);
+      --text: #1a1a1a;
+      --subtext: #424242;
+      --bust-red: #c62828;
+      --bonus-green: #2e7d32;
+      --f7-purple: #6a1b9a;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      transition: background-color 0.3s, color 0.3s;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      overscroll-behavior: none;
+    }
+
+    /* Custom Scrollbar for hidden look */
+    ::-webkit-scrollbar {
+      width: 0px;
+      background: transparent;
+    }
+
+    .glass-panel {
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .light-mode .glass-panel {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/index-TNfmB9oL.js"></script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script>
+    // Register service worker for PWA functionality
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        const path = window.location.pathname;
+        let swPath = '/sw.js';
+        if (path.includes('/Fliptest2/')) swPath = '/Fliptest2/sw.js';
+        if (path.includes('/FlipMaster-7/')) swPath = '/FlipMaster-7/sw.js';
+
+        navigator.serviceWorker.register(swPath)
+          .then((registration) => {
+            console.log('SW registered:', registration);
+          })
+          .catch((error) => {
+            console.log('SW registration failed:', error);
+          });
+      });
+    }
+  </script>
+</body>
+
+</html>
