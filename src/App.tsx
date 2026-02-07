@@ -221,13 +221,13 @@ const App = () => {
       <div
         className="min-h-screen flex flex-col items-center justify-center p-6 text-center space-y-6 relative bg-bg transition-colors duration-300"
         style={{
-          paddingTop: 'calc(1.5rem + env(safe-area-inset-top, 20px))',
-          paddingBottom: 'calc(1.5rem + env(safe-area-inset-bottom, 20px))'
+          paddingTop: 'calc(4rem + env(safe-area-inset-top, 0px))',
+          paddingBottom: 'calc(2rem + env(safe-area-inset-bottom, 0px))'
         }}
       >
         <button
           onClick={toggleTheme}
-          className="fixed top-6 right-6 w-12 h-12 rounded-full bg-card-bg border border-white/10 flex items-center justify-center text-xl shadow-lg z-50 hover:bg-white/10 transition-colors"
+          className="absolute top-6 right-6 w-12 h-12 rounded-full bg-card-bg border border-white/10 flex items-center justify-center text-xl shadow-lg z-50 hover:bg-white/10 transition-colors"
 
         >
           {theme === 'dark' ? '☀️' : '🌙'}
@@ -348,8 +348,8 @@ const App = () => {
       <div
         className="min-h-screen p-6 bg-bg transition-colors duration-300"
         style={{
-          paddingTop: 'calc(1.5rem + env(safe-area-inset-top, 20px))',
-          paddingBottom: 'calc(1.5rem + env(safe-area-inset-bottom, 20px))'
+          paddingTop: 'calc(2rem + env(safe-area-inset-top, 0px))',
+          paddingBottom: 'calc(2rem + env(safe-area-inset-bottom, 0px))'
         }}
       >
         <button onClick={() => setScreen('title')} className="mb-6 text-subtext font-black text-xs tracking-widest">← BACK</button>
@@ -454,7 +454,7 @@ const App = () => {
       </div>
 
       <div
-        className="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-bg via-bg to-transparent pointer-events-none"
+        className="fixed bottom-0 left-0 right-0 p-4 pb-[calc(1rem+env(safe-area-inset-bottom,0px))] bg-gradient-to-t from-bg via-bg to-transparent pointer-events-none"
 
       >
         <div className="max-w-lg mx-auto pointer-events-auto">
