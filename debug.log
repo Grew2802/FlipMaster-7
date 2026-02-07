@@ -416,3 +416,5 @@ Instead of /public/icon-192.png, use /icon-192.png.
 12:44:40 am [vite] page reload index.html
 12:44:42 am [vite] page reload index.html
 12:44:46 am [vite] page reload public/sw.js
+12:52:29 am [vite] vite.config.ts changed, restarting server...
+12:52:29 am [vite] server restarted.
