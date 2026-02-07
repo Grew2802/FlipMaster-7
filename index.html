@@ -126,10 +126,21 @@
         navigator.serviceWorker.register(swPath)
           .then((registration) => {
             console.log('SW registered:', registration);
+            // Check for updates periodically
+            registration.update();
           })
           .catch((error) => {
             console.log('SW registration failed:', error);
           });
+      });
+
+      // Force reload when new service worker takes over
+      let refreshing = false;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (!refreshing) {
+          refreshing = true;
+          window.location.reload();
+        }
       });
     }
   </script>
