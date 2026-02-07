@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <!-- Deployment Sync: 2026-02-08 10:38 -->
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-MP7897KJYF"></script>
   <script>
@@ -96,8 +97,8 @@
     }
 
     :root {
-      /* Extreme fail-safe minimums: 80px for top notch area, 20px for bottom indicator */
-      --safe-top: max(80px, env(safe-area-inset-top, 0px));
+      /* Production safe zone: 60px top minimum to clear all iPhone notches */
+      --safe-top: max(60px, env(safe-area-inset-top, 0px));
       --safe-bottom: max(20px, env(safe-area-inset-bottom, 0px));
     }
 
@@ -109,7 +110,7 @@
       bottom: calc(var(--safe-bottom));
     }
   </style>
-  <script type="module" crossorigin src="/assets/index-CoDSIrqi.js"></script>
+  <script type="module" crossorigin src="/assets/index-DfATlbR7.js"></script>
 </head>
 
 <body>
