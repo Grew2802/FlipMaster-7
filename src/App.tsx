@@ -218,13 +218,17 @@ const App = () => {
 
   if (screen === 'title') {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center space-y-6 relative bg-bg transition-colors duration-300">
+      <div
+        className="min-h-screen flex flex-col items-center justify-center p-6 text-center space-y-6 relative bg-bg transition-colors duration-300"
+        style={{
+          paddingTop: 'calc(1.5rem + env(safe-area-inset-top, 20px))',
+          paddingBottom: 'calc(1.5rem + env(safe-area-inset-bottom, 20px))'
+        }}
+      >
         <button
           onClick={toggleTheme}
-          className="fixed top-0 right-6 w-12 h-12 rounded-full bg-card-bg border border-white/10 flex items-center justify-center text-xl shadow-lg z-50 hover:bg-white/10 transition-colors"
-          style={{
-            marginTop: 'calc(1.5rem + env(safe-area-inset-top, 20px))'
-          }}
+          className="fixed top-6 right-6 w-12 h-12 rounded-full bg-card-bg border border-white/10 flex items-center justify-center text-xl shadow-lg z-50 hover:bg-white/10 transition-colors"
+
         >
           {theme === 'dark' ? '☀️' : '🌙'}
         </button>
@@ -341,7 +345,13 @@ const App = () => {
 
   if (screen === 'stats') {
     return (
-      <div className="min-h-screen p-6 bg-bg transition-colors duration-300">
+      <div
+        className="min-h-screen p-6 bg-bg transition-colors duration-300"
+        style={{
+          paddingTop: 'calc(1.5rem + env(safe-area-inset-top, 20px))',
+          paddingBottom: 'calc(1.5rem + env(safe-area-inset-bottom, 20px))'
+        }}
+      >
         <button onClick={() => setScreen('title')} className="mb-6 text-subtext font-black text-xs tracking-widest">← BACK</button>
         <h2 className="text-2xl font-black text-primary mb-4 uppercase tracking-tighter">Match History</h2>
         <div className="space-y-2">
@@ -360,7 +370,13 @@ const App = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col p-4 max-w-lg mx-auto bg-bg transition-colors duration-300">
+    <div
+      className="min-h-screen flex flex-col p-4 max-w-lg mx-auto bg-bg transition-colors duration-300"
+      style={{
+        paddingTop: 'calc(1rem + env(safe-area-inset-top, 20px))',
+        paddingBottom: 'calc(1rem + env(safe-area-inset-bottom, 20px))'
+      }}
+    >
       <div className="glass-panel rounded-2xl p-4 mb-4 flex justify-between items-center bg-card-bg shadow-lg">
         <div>
           <h2 className="text-[10px] font-black text-primary tracking-[0.2em] uppercase">Round {round}</h2>
@@ -439,9 +455,7 @@ const App = () => {
 
       <div
         className="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-bg via-bg to-transparent pointer-events-none"
-        style={{
-          paddingBottom: 'calc(1rem + env(safe-area-inset-bottom, 20px))'
-        }}
+
       >
         <div className="max-w-lg mx-auto pointer-events-auto">
           <button onClick={submitRound} className="w-full bg-primary text-white dark:text-black font-black text-lg py-5 rounded-2xl shadow-2xl shadow-primary/20 active:scale-95 transition-all hover:brightness-110 uppercase tracking-widest">
