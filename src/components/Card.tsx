@@ -33,9 +33,9 @@ export const Card: React.FC<CardProps> = ({
     }
 
     // Numbers
-    if (value === 0) return 'from-gray-700 to-gray-900 shadow-gray-900/40';
+    if (value === 0) return isDark ? 'from-gray-700 to-gray-900 shadow-gray-900/40' : 'from-gray-400 to-gray-600 shadow-gray-600/40';
     if (Number(value) >= 10) return 'from-primary/80 to-primary shadow-primary/30';
-    return isDark ? 'from-slate-700 to-slate-800' : 'from-slate-100 to-slate-200';
+    return isDark ? 'from-slate-700 to-slate-800' : 'from-slate-300 to-slate-400';
   };
 
   const scheme = getColorScheme();
@@ -48,7 +48,7 @@ export const Card: React.FC<CardProps> = ({
         transition-all duration-200 ease-out
         ${selected ? 'scale-95 ring-4 ring-yellow-400 z-10' : 'hover:scale-105 hover:shadow-xl hover:z-10 shadow-lg'}
         flex flex-col items-center justify-center
-        overflow-hidden border border-white/10
+        overflow-hidden ${isDark ? 'border border-white/10' : 'border-2 border-gray-300'}
         bg-gradient-to-br ${scheme}
       `}
       aria-label={`Card ${displayLabel}`}

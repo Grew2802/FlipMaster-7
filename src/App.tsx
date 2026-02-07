@@ -230,7 +230,7 @@ const App = () => {
           🎴
         </div>
         <div>
-          <h1 className="text-4xl font-black text-white dark:text-white tracking-tight uppercase">FlipMaster 7</h1>
+          <h1 className="text-4xl font-black text-text tracking-tight uppercase">FlipMaster 7</h1>
           <p className="text-primary font-bold uppercase tracking-widest text-xs mt-1">Scoring Companion</p>
         </div>
 
