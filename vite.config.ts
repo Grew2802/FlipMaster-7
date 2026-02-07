@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/Fliptest2/',
+  base: '/FlipMaster-7/',
   publicDir: 'public',
   build: {
     outDir: 'dist',
