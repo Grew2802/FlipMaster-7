@@ -78,7 +78,12 @@ export const Calculator: React.FC<CalculatorProps> = ({
   };
 
   return (
-    <div className="flex flex-col h-[100dvh] w-full overflow-hidden p-2 bg-bg transition-colors duration-300">
+    <div className="flex flex-col h-[100dvh] w-full overflow-hidden bg-bg transition-colors duration-300" style={{
+      paddingTop: 'max(0.75rem, env(safe-area-inset-top, 44px))',
+      paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom, 20px))',
+      paddingLeft: 'max(0.5rem, env(safe-area-inset-left, 0px))',
+      paddingRight: 'max(0.5rem, env(safe-area-inset-right, 0px))'
+    }}>
       {/* Premium Header */}
       <div className="flex-shrink-0 mb-2 p-3 rounded-2xl bg-card-bg border border-white/10 flex items-center justify-between shadow-2xl relative z-50 glass-panel">
         <div className="flex flex-col justify-center">
