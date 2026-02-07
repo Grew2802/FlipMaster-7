@@ -95,10 +95,9 @@
       border: 1px solid rgba(0, 0, 0, 0.1);
     }
 
-    /* Safe area support for fixed elements */
     :root {
-      /* Fail-safe minimums: 60px for top notch area, 20px for bottom indicator */
-      --safe-top: max(60px, env(safe-area-inset-top, 0px));
+      /* Extreme fail-safe minimums: 80px for top notch area, 20px for bottom indicator */
+      --safe-top: max(80px, env(safe-area-inset-top, 0px));
       --safe-bottom: max(20px, env(safe-area-inset-bottom, 0px));
     }
 
