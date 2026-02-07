@@ -79,8 +79,8 @@ export const Calculator: React.FC<CalculatorProps> = ({
 
   return (
     <div className="flex flex-col h-[100dvh] w-full overflow-hidden bg-bg transition-colors duration-300" style={{
-      paddingTop: 'max(0.75rem, env(safe-area-inset-top, 44px))',
-      paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom, 20px))',
+      paddingTop: 'var(--safe-top)',
+      paddingBottom: 'var(--safe-bottom)',
       paddingLeft: 'max(0.5rem, env(safe-area-inset-left, 0px))',
       paddingRight: 'max(0.5rem, env(safe-area-inset-right, 0px))'
     }}>
