@@ -24,7 +24,7 @@ export const calculateScore = (
 
   // Rules Check
   const hasZero = numbers.includes(0);
-  const isFlip7 = distinctCount >= 7;
+  const isFlip7 = numbers.length >= 7;
 
   // 1. Base Score (Sum of numbers)
   let currentScore = sum;
