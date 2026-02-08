@@ -17,17 +17,8 @@ export const calculateScore = (
   isBrutalMode: boolean = false,
   skipFlip7Bonus: boolean = false // Optional in Brutal Mode
 ): ScoreResult => {
-  // Handle the "Lucky 13" Vengeance rule
-  let processedNumbers = [...numbers];
-  let baseScore = 0;
-  const lucky13Count = processedNumbers.filter(n => n === 13).length;
-
-  if (lucky13Count === 2) {
-    baseScore += 31; // Two 13s are worth 31 points
-    processedNumbers = processedNumbers.filter(n => n !== 13);
-  }
-
-  const sum = processedNumbers.reduce((a, b) => a + b, 0) + baseScore;
+  // Handle scoring
+  const sum = numbers.reduce((a, b) => a + b, 0);
   const uniqueNumbers = new Set(numbers);
   const distinctCount = uniqueNumbers.size;
 
